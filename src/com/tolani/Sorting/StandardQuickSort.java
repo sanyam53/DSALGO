@@ -51,29 +51,26 @@ public class StandardQuickSort {
         int pivotIndex;
 
         if(low < high) {
-            pivotIndex = partition(arr, low, high);
+
+            int chosePivot;
+            
+            //chosePivot = ChooseLowAsPivot(low,high);    // choosing the first element as a pivot
+
+            chosePivot = ChoosePivotRandomly(low,high);     // index of pivot we are choosing
+            // to choose pivot randomly (uniformly)
+
+            pivotIndex = partition(arr, low, high, chosePivot);       // index whr pivot get settled
 
             QuickSort(arr, low, pivotIndex - 1);
             QuickSort(arr, pivotIndex + 1, high);
         }
     }
 
-    public static int partition(int[] arr,int low,int high)
+    public static int partition(int[] arr,int low,int high,int pivot)
     {
-        int pivot;
 
-        //pivot = ChoosePivot(low,high);    // choosing the first element as a pivot
-
-        /*      *** Randomized Quick sort *******
-                > just choose the pivot randomly then as in this code we r tkng pivot as low , so swap the pivot with low elemnt
-                > and everything else will follow , yes dnt forget to change the index also ok
-                > comment above pivot code line
-*/
-pivot = ChoosePivotRandomly(low,high);  // to choose pivot randomly (uniformly)
-swap(arr,low,pivot);       // swapping pivot element with low element
-pivot = low;      // we swapped pivot elemnt with low elemnt so now change the index to make our code run
-
-
+        swap(arr,low,pivot);       // swapping pivot element with low element to make our this code work
+        pivot = low;      // we swapped pivot elemnt with low elemnt so now change the index to make our code run
 
 
         int i= low+1;    // 'i' is next to the pivot element
@@ -107,7 +104,7 @@ pivot = low;      // we swapped pivot elemnt with low elemnt so now change the i
         return j;       // returning an index where pivot get settled
     }
 
-    private static int ChoosePivot(int low, int high) {
+    private static int ChooseLowAsPivot(int low, int high) {
         return low;
     }
 

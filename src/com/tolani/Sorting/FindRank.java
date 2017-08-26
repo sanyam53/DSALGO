@@ -23,7 +23,8 @@ public class FindRank {
 
         int pivotIndex = ChoosePivotRandomly(low,high);
 
-        partition(arr,low,high,pivotIndex)
+        partition(arr,low,high,pivotIndex);
 
+        return 1;
     }
 }
