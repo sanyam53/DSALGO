@@ -10,11 +10,11 @@ public class FindMin_InMovingWindow {
 
     static int[] arr = {3,6,8,7,5,2,9,10};
 
-    static int[] arr2 = {6,8,3,5,10,2,1,4};
+    static int[] arr2 = {6,8,3,5,10,2,1,4};  // see this test case to check in the last window ok .
 
     public static void main(String[] args)
     {
-        FindMin(arr2,0,arr2.length-1,3);
+        FindMin(arr,0,arr.length-1,3);
     }
 
     public static void FindMin(int arr[],int low , int high,int winsize)
@@ -46,8 +46,8 @@ public class FindMin_InMovingWindow {
 
         winpointer++;  // winpointer is 1 now
 
-        //while(i <=high)
-        while(winpointer <= (high-winsize+1))
+        while(i <=high)        // as this is the end pointer to the window so it will go till the last index , so last window also get checked
+        //while(winpointer <= (high-winsize+1))    // in this approach last elements in the window left out to check so last win wont be chckd for min
         {
             if(TOS == -1)        // this is imp bcz whn stack get empties then ur program will crash !
             {
@@ -58,7 +58,7 @@ public class FindMin_InMovingWindow {
             if(arr[i] > arr[stackQueue[TOS]])
             {
                 push(i);
-                i++;
+               // i++;
             }
 
             else if(arr[i] < arr[stackQueue[TOS]])
@@ -67,11 +67,13 @@ public class FindMin_InMovingWindow {
                 continue;
             }
 
+            i++;
+
             if(stackQueue[FRONT] < ((i-1) - winsize +1)) {FRONT++;}   // (i-1) here bcz 'i' get incrmntd aftr pushing
 
             // before printing this we ve to delete the elemnt which isnt in the range
             System.out.println(arr[stackQueue[FRONT]]);
-            winpointer++;
+            //winpointer++;
 
         }
 
