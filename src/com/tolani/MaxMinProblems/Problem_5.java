@@ -19,7 +19,6 @@
  */
 
 
-
 package com.tolani.MaxMinProblems;
 
 public class Problem_5 {
@@ -34,19 +33,22 @@ public class Problem_5 {
         System.out.println(ans);
     }
 
-    public static int Approach2(int[] arr,int low , int high)
+    public static int Approach2(int[] arr,int low ,int high)
     {
         int iMin=0;   // this is minimum
         int j=1;
 
         int maxdiff = arr[j] - arr[iMin];
 
-        for(int k=1 ; k < high ; k++)
+        for(int k= 1 ; k < high ; k++)
         {
+            j++;
+
             if(arr[k] < arr[iMin]) { iMin = k;}    // changing min
 
-            int var = arr[k+1]-arr[iMin];        // doing Aj - Amin
-            if(var >maxdiff){maxdiff = var;}
+            int var = arr[j]-arr[iMin];        // doing Aj - Amin
+
+            if(var > maxdiff){maxdiff = var;}
         }
 
         return maxdiff;

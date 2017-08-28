@@ -11,8 +11,6 @@
 
  */
 
-
-
 package com.tolani.MaxMinProblems;
 
 public class Problem_6 {
