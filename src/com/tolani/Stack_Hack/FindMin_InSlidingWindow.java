@@ -1,6 +1,6 @@
 package com.tolani.Stack_Hack;
 
-public class FindMin_InMovingWindow {
+public class FindMin_InSlidingWindow {
 
     static int[] stackQueue = new int[100];
 
@@ -10,7 +10,7 @@ public class FindMin_InMovingWindow {
 
     static int[] arr = {3,6,8,7,5,2,9,10};
 
-    static int[] arr2 = {6,8,3,5,10,2,1,4};  // see this test case to check in the last window ok .
+    static int[] arr2 = {6,8,3,5,10,2,1,4};  // see this test case to check in the last window ok.
 
     public static void main(String[] args)
     {
