@@ -22,30 +22,78 @@ public class MyLinkedList {
 
     }
 
-    public void DisplayLinkedList(Node head) {
+    public void displayLinkedList() {
         Node t = head;
 
+        if(t == null){System.out.println("Linked List is empty :p");}
+
         while (t != null) {
-            System.out.print(t.data + " -> ");
+
+            if(t.next == null) { System.out.println(t.data + " -> " + "NULL");}
+            else System.out.print(t.data + " -> ");
             t = t.next;
         }
     }
 
-    public static void main(String[] args) {
-        MyLinkedList ll = new MyLinkedList();
+    public void insertAtBegin(int data)
+    {
+        Node n = new Node(data);
 
-        // System.out.println(ll.size);    0 by default
-
-        Node n1 = new Node(1);
-
-        ll.head = n1;      // head -> n1
-
-        Node n2 = new Node(2);
-
-        Node n3 = new Node(3, n2);       // n3 -> n2
-
-        n1.next = n3;     // head -> n1 -> n3 -> n2 -> null
-
-        ll.DisplayLinkedList(ll.head);
+        if(this.head == null){ head =n;}
+        else
+        {
+            n.next = head;
+            head = n;
+        }
     }
+
+    public void insertAtEnd(int data)
+    {
+        Node n = new Node(data);
+
+        Node t = this.head;
+
+        while(t.next != null)
+        {
+            t = t.next;
+        }
+
+        t.next = n;
+        // n.next is null by default
+    }
+
+    public void insertAtPos(int data)
+    {
+
+    }
+
+    public void deleteFromBegin()
+    {
+        // u dnt hv to free in java : garbage collector is thr for u man ! :>
+
+        if(head == null){ System.out.println("underflow :p");}
+        else {
+            head = head.next;
+        }
+    }
+
+    public void deleteFromEnd()
+    {
+
+        if(head == null){ System.out.println("underflow :p");}
+
+        else if(head.next == null){ head = null;}
+
+        else
+        {
+            Node t = head;
+            while(t.next.next != null)
+            {
+                t = t.next;
+            }
+
+            t.next = null;
+        }
+    }
+
 }
