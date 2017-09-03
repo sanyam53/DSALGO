@@ -1,3 +1,31 @@
+/*
+*       standard TWO SUM Problem : Given an array of integers , find two indices such that (Ai + Aj == x ) ; where  i != j
+*
+*       Approach 1 : (Brute Force) : O(n^2) : two loops : first will take one element 'i' and scnd will search for (x - Ai) in the list
+*                                                               so for n elements it will tk qudratic time
+*
+*       Approach 2 : (sorting) : O(nlogn) : step 1 : first sort the list
+*                                           step 2 : two pointer approach : l & r : if(sum of l & r == x) then return
+*                                                                                   else if (sum is smaller) then l++;
+*                                                                                   else r--;
+*
+*       Approach 3 : (hashing) : O(2*n) : O(n) : as u cn see in the brute force approach we r doing SEARCH operation , now search operatin is O(1) for
+*                                                 hash table :: so now think !
+*
+*                 O(n) space complexity >take a hash table of the size of the array (note : hash table cn work only if size of arr is known ? )
+*                                       >store all the values of the array as a KEY of h.t. and indices as the VALUE of h.t.  : O(n) for this
+*                                       >now once u stored all the values , now search for the complement value : means ( x - a[i] ) in hash table
+*                                           , so now this search will tk constant time for each element : so it will tk linear time in total
+*                                       >so total O(2n) time.
+*
+*                                       here on succesful serach we will return an index which is VALUE of the KEY
+* */
+
+
+
+
+
+
 package com.tolani.LeetCode.Arrays.Easy;
 
 import com.tolani.HashTable.MyHashTable;
