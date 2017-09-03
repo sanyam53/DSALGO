@@ -17,7 +17,7 @@
 
 package com.tolani.MaxMinProblems;
 
- import static com.tolani.Sorting.FindMedian_LinearTime.DisplayArr;
+ import static com.tolani.Sorting.FindMedian_LinearTime.displayArr;
 
  public class MaximumSum_SubSequence {
 
@@ -92,7 +92,7 @@ package com.tolani.MaxMinProblems;
             prefixArr[i] =  prefixArr[i-1] + arr[i-1];     // constructing prefix array
         }
 
-        DisplayArr(prefixArr);
+        displayArr(prefixArr);
 
         int ans = Problem_5.Approach2(prefixArr,0,prefixArr.length-1);
 

@@ -35,11 +35,11 @@ public class FindMedian_LinearTime {
             numOfGroups--;
         }
 
-        DisplayArr(a);    // so u cn see here tht all the medians (specificly n/5) are in d beginning now
+        displayArr(a);    // so u cn see here tht all the medians (specificly n/5) are in d beginning now
 
         numOfGroups = n;
         BubbleSort(a,0,numOfGroups-1);
-        DisplayArr(a);
+        displayArr(a);
 
         int medianOfMedians = a[(0 + numOfGroups -1) /2] ;    // returning median of medians
 
@@ -48,7 +48,7 @@ public class FindMedian_LinearTime {
 
     }
 
-    public static void DisplayArr(int[] arr)
+    public static void displayArr(int[] arr)
         {
             StringBuilder sb = new StringBuilder("");
 

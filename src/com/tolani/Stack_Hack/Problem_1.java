@@ -17,7 +17,7 @@
 
 package com.tolani.Stack_Hack;
 
-import static com.tolani.Sorting.FindMedian_LinearTime.DisplayArr;
+import static com.tolani.Sorting.FindMedian_LinearTime.displayArr;
 
 public class Problem_1 {
 
@@ -78,6 +78,6 @@ public class Problem_1 {
                 B_arr[index] = 0;            // now store 0 at these locatins bcz thr is no elemnt smaller than them on theier right side
             }
 
-            DisplayArr(B_arr);
+            displayArr(B_arr);
         }
 }
