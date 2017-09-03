@@ -1,4 +1,5 @@
 package com.tolani.HashTable;
+import java.util.*;
 
 public class Test_MyHashTable {
 
@@ -40,5 +41,8 @@ public class Test_MyHashTable {
        ans = ht.search(5);
 
        System.out.println("value for the given key is " + ans);
+
+       Map map = new HashMap();
+       map.put(2,3);
     }
 }

@@ -33,7 +33,7 @@ package com.tolani.MaxMinProblems;
         ans = Approach2(arr,0,arr.length-1);
         System.out.println(ans);
 
-       ans= Approach3(arr2,0,arr2.length-1);
+       ans= Approach3(arr,0,arr.length-1);
         System.out.println(ans);
     }
 
@@ -42,9 +42,9 @@ package com.tolani.MaxMinProblems;
         int max = Integer.MIN_VALUE;
         int sum;
 
-        for(int i=0 ; i < high ; i++)        // 'i' cant be == last index or high index bcz if u tk min len of subseqn 2 then if 'i' points to d
+        for(int i=0 ; i <= high ; i++)        // 'i' cant be == last index or high index bcz if u tk min len of subseqn 2 then if 'i' points to d
         {                                           // last index then 'j' loop wont run and only last element will be counted as subseqn
-            for(int j=i+1 ; j <= high ; j++)       // if subseqn length can be 1 then j=i , else min subseqn is of length 2 then j shuld be i+1
+            for(int j=i ; j <= high ; j++)       // if subseqn length can be 1 then j=i , else min subseqn is of length 2 then j shuld be i+1
             {
                 sum =0;
 
@@ -64,7 +64,7 @@ package com.tolani.MaxMinProblems;
         int sum=0;
         int max = Integer.MIN_VALUE;
 
-        for(int i=0 ; i < high ; i++)
+        for(int i=0 ; i <= high ; i++)
         {
             sum = arr[i];
 
@@ -80,18 +80,22 @@ package com.tolani.MaxMinProblems;
 
     public static int Approach3(int[] arr , int low , int high)
     {
-        int[] prefixArr = new int[high + 1];
+        int maxInPrefixArr =0;
 
-        prefixArr[0] = arr[0];
+        int[] prefixArr = new int[( high + 1 ) + 1];
 
-        for(int i=1 ; i <=high ; i++)
+        prefixArr[0] = 0;           // putting first element as 0 in prefix array
+        prefixArr[1] = arr[0];
+
+        for(int i=2 ; i <=high+1 ; i++)
         {
-            prefixArr[i] =  prefixArr[i-1] + arr[i];
+            prefixArr[i] =  prefixArr[i-1] + arr[i-1];     // constructing prefix array
         }
 
         DisplayArr(prefixArr);
 
         int ans = Problem_5.Approach2(prefixArr,0,prefixArr.length-1);
+
         return ans;
 
     }
