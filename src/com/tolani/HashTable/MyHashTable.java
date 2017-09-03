@@ -27,7 +27,7 @@ public class MyHashTable {           // lets say this is the whole hash table st
     }
 
 
-    MyHashTable()         // hash table constructor
+    public MyHashTable()         // hash table constructor
     {
         numOfBuckets = 10;       // intially if size is not given
         bucketArray = new HashNode[numOfBuckets];    // so array is allctd the space based on the size
@@ -38,7 +38,7 @@ public class MyHashTable {           // lets say this is the whole hash table st
         }
     }
 
-    MyHashTable(int size)     // const.2 :  creating hash table with the given size
+    public MyHashTable(int size)     // const.2 :  creating hash table with the given size
     {
         numOfBuckets = size;
 
