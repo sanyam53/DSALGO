@@ -35,5 +35,10 @@ public class Test_MyHashTable {
         ht.remove(50);       // linked list is empty now and we r removing
         ht.remove(11);        // thr is no such key 11 in the list :p
         ht.displayHashTable();
+
+       int ans = ht.search(88);
+       ans = ht.search(5);
+
+       System.out.println("value for the given key is " + ans);
     }
 }

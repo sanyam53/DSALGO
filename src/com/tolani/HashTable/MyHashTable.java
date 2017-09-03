@@ -38,6 +38,18 @@ public class MyHashTable {           // lets say this is the whole hash table st
         }
     }
 
+    MyHashTable(int size)     // const.2 :  creating hash table with the given size
+    {
+        numOfBuckets = size;
+
+        bucketArray = new HashNode[numOfBuckets];
+
+        for(int i=0; i <numOfBuckets ; i++)
+        {
+            bucketArray[i] = null;
+        }
+    }
+
 /*
     add function : which adds the value to the hash table : it takes O(1) time : means constant time
 
@@ -150,4 +162,31 @@ public class MyHashTable {           // lets say this is the whole hash table st
         }
 
     }
+
+    // search function : it returns -1 , if list is null OR key doesnt exist
+    // and returns value if key exists in the linked list
+
+    public int search(int key)
+    {
+        int bucketindex = key % numOfBuckets;
+
+        HashNode head = bucketArray[bucketindex];
+
+        if(head == null) {System.out.println("list is empty man ! no key !"); return -1;}
+
+        else
+        {
+            while(head != null)
+            {
+                if(head.key == key)
+                    return head.value;
+
+                head = head.next;
+            }
+        }
+
+        System.out.println("key doesn't exist in the hash table");
+        return -1;
+    }
+
 }
