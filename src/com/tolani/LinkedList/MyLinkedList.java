@@ -2,20 +2,20 @@ package com.tolani.LinkedList;
 
 public class MyLinkedList {
 
-    Node head;   // head of the linked list which points to the type Node
-    int size;     // size of the linked list means : #of nodes
+    public Node head;   // head of the linked list which points to the type Node
+    public int size;     // size of the linked list means : #of nodes
 
-    static class Node            // static nested class : so tht we cn drctly access it without creting outer class obj in main method
+    public static class Node            // static nested class : so tht we cn drctly access it without creting outer class obj in main method
     {
-        int data;     // data
-        Node next;    // link to the next node
+        public int data;     // data
+        public Node next;    // link to the next node
 
-        Node(int data) {
+        public Node(int data) {
             this.data = data;
             this.next = null;
         }
 
-        Node(int data, Node link) {
+        public Node(int data, Node link) {
             this.data = data;
             this.next = link;
         }
