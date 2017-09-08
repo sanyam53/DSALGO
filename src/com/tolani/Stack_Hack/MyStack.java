@@ -6,7 +6,7 @@ public class MyStack {
     int size;
     int stck[];
 
-    MyStack(int s)
+    public MyStack(int s)
     {
         this.size = s;
         stck = new int[s];
