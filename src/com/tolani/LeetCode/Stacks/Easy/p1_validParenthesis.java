@@ -24,10 +24,10 @@ public class p1_validParenthesis {
 
     public static void main(String[] args)
     {
-        isValidApproach1();
+        isValidApproach1(" ");
     }
 
-}
+
 
     public static boolean isValidApproach1(String s) {
 
@@ -69,3 +69,4 @@ public class p1_validParenthesis {
         if(stck.TOS == -1) return true;
         else return false;
     }
+}
