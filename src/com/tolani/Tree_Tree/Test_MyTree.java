@@ -28,10 +28,11 @@ public class Test_MyTree {
         n3.right =n6;
         n5.left = n7;
 
+        System.out.println("postorder traversal : ");
         btree.postOrderTraversal(btree.root);
-        System.out.println();
+        System.out.println('\n' + "preorder traversal : ");
         btree.preOrderTraversal(btree.root);
-        System.out.println();
+        System.out.println('\n' + "inorder traversal : ");
         btree.inOrderTraversal(btree.root);
 
         int a = btree.totalNoOfNodes(btree.root);
@@ -46,5 +47,16 @@ public class Test_MyTree {
         System.out.println("areSibling or not ? : " + btree.isSibling(btree.root,n5,n6));
 
         System.out.println("LCA problem : " + btree.closestCommonAncestor(btree.root,n5,n6).data);
+
+        int[] in = {4,2,1,7,5,3,6};
+        int[] pre ={1,2,4,3,5,7,6};
+
+        Node rootoftree = btree.constructTree(in,pre,0,in.length-1);
+
+        MyTree mt = new MyTree();
+        mt.root = rootoftree;
+
+        mt.postOrderTraversal(mt.root);
+
     }
 }

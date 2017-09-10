@@ -52,7 +52,7 @@ public class MyTree {
     }
 
 
-    // Recursive beauty of a tree : totalNoOfNodes , Height of a node , level of a node , isDescendent or not , areSibling or not ,
+    // Recursive beauty of a tree : totalNoOfNodes , Height of a node , level of a node , isDescendent or not , areSibling or not , LCA Problem
 
     public int totalNoOfNodes(Node root) {
         if (root == null) return 0;
@@ -132,8 +132,6 @@ public class MyTree {
 
     }
 
-
-
     public Node closestCommonAncestor(Node root , Node node1 , Node node2)
     {
 
@@ -159,5 +157,51 @@ public class MyTree {
         // if both are not null then return root itself , if one is not null then return tht non null reference means either left or right.
 
     }
+
+    // construct a tree from the given inorder and preorder sequence : or give postorder seqn from given inorder and preorder seqn
+
+    // inorder = 4 2 1 7 5 3 6     , pre order = 1 2 4 3 5 7 6
+
+    // algo is : u will tk preorder seqn and tk elemnt one by one : now for each elemnt u will serch tht elemnt in inorder seqn and u just
+            // call recursively of inorder seqn in two halves one is the left link , one is right and so on...
+
+    // no need to pass preorder indices bcz u will always go frm left to right in tht sequence , so u just tk one index and incrmnt it everytime
+    // so u ve to mk it static to use it globally
+
+    static int preIndex =0;
+
+    public Node constructTree(int[] inorder,int[] preorder,int inLow,int inHigh)
+    {
+        if(inHigh < inLow) return null;     // this whr recursion stops ok : if not then one node cn be thr so create a node for tht one node
+
+        int data = preorder[preIndex++];
+
+        Node tNode = CreateTreeNode(data);      // created a node and returned the reference of tht node
+
+        // now aftr creting a node check if thr only one node in the passed list and so return itself : it will be whn thr is only one elemnt in thr
+
+        if(inHigh == inLow) return tNode;         // only one elemnt is thr means start and end indices are same
+
+        int inIndex = -1;
+
+        for(int i=0; i < inorder.length ; i++)          // searching for a node in inorder seqn
+        {
+           if(data == inorder[i]) { inIndex = i; break;}
+        }
+
+        tNode.left = constructTree(inorder,preorder,inLow,inIndex-1);       // call recursively for left side list of inorder seqn
+
+        tNode.right = constructTree(inorder,preorder,inIndex+1,inHigh);       // for right side list of inorder seqn
+
+        return tNode;      // u ve to return a node : bcz this is how u link every node
+
+    }
+
+    private Node CreateTreeNode(int x) {
+        Node n = new Node(x);
+        return n;
+    }
+
+
 
 }
