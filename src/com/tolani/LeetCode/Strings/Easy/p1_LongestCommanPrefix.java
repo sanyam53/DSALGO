@@ -1,3 +1,20 @@
+/*
+    Problem : find longest comman prefix in the given array of strings.
+
+    see this frm here : http://www.geeksforgeeks.org/longest-common-prefix-set-1-word-by-word-matching/
+                        http://www.geeksforgeeks.org/longest-common-prefix-set-2-character-by-character-matching/
+
+                        https://leetcode.com/problems/longest-common-prefix/solution/
+
+                        O(n*m) time by any algo.
+ */
+
+// we have learned sm methds here of String class in java
+
+// 1. str.charAt(index) : returns a char at specified index
+// 2. str.substring(int begin , int end) : returns substring of gvn indices
+
+
 package com.tolani.LeetCode.Strings.Easy;
 
 public class p1_LongestCommanPrefix {
