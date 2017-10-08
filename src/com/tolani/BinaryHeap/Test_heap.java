@@ -2,6 +2,8 @@ package com.tolani.BinaryHeap;
 
 import com.tolani.Tree_Tree.MyTree;
 
+import java.util.Arrays;
+
 public class Test_heap {
 
     public static void main(String[] args)
@@ -24,5 +26,16 @@ public class Test_heap {
         System.out.println("min elemnt we extracted is " + ans);
         heap.displayHeap();
         System.out.println("heap size aftr extracting minimum " + heap.heap_size);
+
+        heap.changeKey(3,8);
+        heap.displayHeap();
+
+        heap.delete(2);
+        heap.displayHeap();
+        System.out.println("heapsize " + heap.heap_size);
+
+        int[] ansArr = heap.buildHeap(new int[]{1,5,7,0,-2,100,50,-8});
+
+        System.out.println(Arrays.toString(ansArr));
     }
 }

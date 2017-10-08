@@ -107,6 +107,45 @@ public class MyHeap {
         return min;
     }
 
+    public int delete(int index)     // delete an arbitrary node
+    {
+        // if u wnt to delete an arbitrary node then u ve to serach for it frst then to delete it and to call heapify on it : this is O(n) overal
+        // instead an optimized clever approach is to decrease a key of it to (min-1) and deleting minimum
+
+        changeKey(index,getMin()-1);
+        int ans = deleteMin();
+        return ans;
+    }
+
+    public void changeKey(int index , int newdata)
+    {
+        int tempdata = heap[index];
+        heap[index] = newdata;
+
+        if(newdata < tempdata)      // decreasekey
+        {
+            bottomUpHeapify(index);
+        }
+        else if(newdata > tempdata)
+        {
+            topDownHeapify(index);
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    public int[] buildHeap(int[] arr)
+    {
+        for(int i=(arr.length/2); i >=0 ; i--)        // internal nodes are frm 1 to n/2 & leaves r frm (n/2+1) to n
+        {
+            topDownHeapify(i); // u hv to pass an array here to perfrom topdown on tht array :::
+        }
+
+        return arr;
+    }
+
     public void displayHeap() {
         System.out.println(Arrays.toString(heap));
     }
