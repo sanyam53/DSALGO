@@ -34,8 +34,8 @@ public class Test_heap {
         heap.displayHeap();
         System.out.println("heapsize " + heap.heap_size);
 
-        int[] ansArr = heap.buildHeap(new int[]{1,5,7,0,-2,100,50,-8});
+     //   int[] ansArr = heap.buildHeap(new int[]{1,5,7,0,-2,100,50,-8});
 
-        System.out.println(Arrays.toString(ansArr));
+       // System.out.println(Arrays.toString(ansArr));
     }
 }
