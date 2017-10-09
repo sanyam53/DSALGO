@@ -112,7 +112,7 @@ public class BST {
                 Node prede = inorderPredecessor(treeRoot, root.data);
                 swap(prede, root);
 
-                // deleting inorder predecessor now : as it is a recursive call
+                // deleting inorder predecessor now : as it is a recursive  call
                 root.left = delete(root.left, prede.data);
             }
         }
