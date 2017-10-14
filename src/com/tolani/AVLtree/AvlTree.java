@@ -42,8 +42,8 @@ public class AvlTree {
         temp.left = n;
         n.right = t2;
 
-        n.height = Math.max(height(n.left),height(n.right)) + 1;
-        temp.height =Math.max(height(temp.left),height(temp.right)) + 1;
+        n.height = updateHeight(n);
+        temp.height = updateHeight(temp);
 
         return temp;      // bcz 'n' is now changed after the rotation so u return tht node which came up bcz of rotation
     }
@@ -55,10 +55,15 @@ public class AvlTree {
         temp.right = n;
         n.left = t2;
 
-        n.height = Math.max(height(n.left),height(n.right)) + 1;        // optimization can be done here lets see it later.
-        temp.height = Math.max(height(temp.left),height(temp.right)) + 1;
+        n.height = updateHeight(n);        // optimization can be done here lets see it later.
+        temp.height = updateHeight(temp);
 
         return temp;
+    }
+
+    public int updateHeight(Node n)
+    {
+        return Math.max(height(n.left),height(n.right)) + 1;
     }
 
     public int checkBalance(Node n)
@@ -94,7 +99,7 @@ public class AvlTree {
         // for imbalance , and if imbalance then we will do rotations : and in rotatins also we
         // update the heights
 
-       root.height = Math.max(height(root.left),height(root.right)) + 1;
+       root.height = updateHeight(root);
 
        int balance;
 
