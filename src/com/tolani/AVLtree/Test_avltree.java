@@ -26,8 +26,8 @@ public class Test_avltree {
         at.root = at.delete(at.root,10);
         System.out.println();
         at.levelOrderTraversal(at.root);
-
-
+        System.out.println();
+        System.out.println(at.root.left.data + " " + at.root.right.data );
 
 
     }
