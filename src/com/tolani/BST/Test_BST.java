@@ -21,12 +21,20 @@ public class Test_BST {
         bst.insert(r,0);
 
         System.out.println("search result in bst " + bst.search(bst.root,6).data);
-
+    
         bst.levelOrderTraversal(bst.root);
         System.out.println();
+
+     // finding inorder predecessor means : largest in a lst
         System.out.println("inorder predecessor of node with value 1 : " + bst.inorderPredecessor(bst.root,1).data);
+
+        // deletion in a bst
 
         bst.delete(bst.root,1);
         bst.levelOrderTraversal(bst.root);
+
+    // lets see the inorder traversal of bst : whch shuld be increasing sorted seqn
+        System.out.println();
+        bst.inorderTraversal(r);
     }
 }

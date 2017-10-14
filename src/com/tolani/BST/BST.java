@@ -80,6 +80,7 @@ public class BST {
     {
         // if u use search functin here and drctly get to tht node then problem with the deletion
         // problem is as u dnt hv parent ptr in ur impn , how u reach to d parent , so impn delete fun carefully
+
         Node treeRoot = root;
         if(root == null) return null;
 
@@ -87,7 +88,7 @@ public class BST {
         {
             root.right = delete(root.right,key);
         }
-        else if(root.data >key)
+        else if(root.data > key)
         {
             root.left = delete(root.left,key);
         }
@@ -96,7 +97,7 @@ public class BST {
         {
             if(root.left == null)      // if left ptr is null  OR  if bth will be null then it is returning a right ptr means returning null
             {
-                // in this case u delete the node and just join the right child
+                // in this case u delete the node and just join the right child if right child is not null
                 return root.right;
             }
 
@@ -107,15 +108,17 @@ public class BST {
 
             else                      // both r not null
             {
-                // so u find the inorder predecesor of a node , u swap the values of both and delete the predecsr node
+                // so u find the inorder predecesor of a node , u swap the value of it wid the node we wnt to delete and delete the predecsr node
 
-                Node prede = inorderPredecessor(treeRoot, root.data);
+                Node prede = inorderPredecessor(treeRoot,root.data);
                 swap(prede, root);
 
-                // deleting inorder predecessor now : as it is a recursive  call
+                // deleting inorder predecessor now : we knw tht it is on the left side so we drctly call root.left for efficiency
+
                 root.left = delete(root.left, prede.data);
             }
         }
+
         return root;
     }
 
@@ -143,5 +146,19 @@ public class BST {
         }
     }
 
+    public void inorderTraversal(Node root)
+    {
+        if(root != null)
+        {
+            inorderTraversal(root.left);
+            visit(root);
+            inorderTraversal(root.right);
+        }
+    }
+
+    public void visit(Node root)
+    {
+        System.out.print(root.data + " ");
+    }
 }
 
