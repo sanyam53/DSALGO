@@ -1,3 +1,35 @@
+/*
+*   2. Calculate maxgap() & mingap() in the tree in O(1) time :
+*
+*       if we implement this functions as whole then we cnt do it in constant time , wht we cn do is we can maintain some properties within the
+*       node to facilitate abv work in constant time : how nd wt properties do we need ?
+*
+*       FInding maxgap is easy : it is maxOfTree - minOfTree = maxgap in the tree : so we cn tk two ptrs : one pointing to d max and one pointing
+*       to the min node , and we can update them as we insert the new nodes or delete the min or max node itslf
+*
+*       Finding mingap is bit difficult : mingap at the node is: (node.data - node.left.rightmost value)  / (node.right.leftmost val - node.data)
+*                                                                 if rightmost is nt thr then simply node.data - node.left.data / same here
+*
+*      we cnt calculate mingap in O(1) time if we do this : so we will maintain 'mingap' property at every node and just return it : this is O(1)
+*
+*      to do so we will put 3 additional properties : 'min' , 'max' , 'mingap' : so to find maxgap just return (max - min) of root node
+*                                                                                to find mingap return mingap of root node
+*
+*       why min & max is needed at every node ? : bcz we can calculate mingap using them easily : how ?
+*
+*          "" mingap at a node n =  Min( mingap of lst , mingap of rst , n.data - max(lst) , min(rst) - n.data )  "" -> means (min of these 4)
+*
+*               so we dnt hv to go leftmost or rightmost to find mingap : we cn use min or max in the lst node nd rst node dirctly
+*
+*      now just update min , max , mingap as we usually do while rotating and the insert/delete : look in the code for this
+*
+*
+*     the central idea is : to facilitate mingap and maxgap in constant time , we just tk advantge of insert/delete , and we do some additional
+*                           work of maintaining these additional properties in the node while doing insert/delete : in the bound of O(logn) time
+*                           so overall times of insert/delete boils down to O(logn) and mingap nd maxgap get calculated in O(1) time
+*
+* */
+
 package com.tolani.AVLtree;
 
 import java.util.LinkedList;
@@ -16,8 +48,9 @@ public class AvlTreeV1 {
         int NoOfNodes;   // this is : NN(Lst) + NN(Rst) + 1
         int sum;         // this is : sum(lst) + sum(rst) + this.data ;
 
-        // additional info to calculate : mingap & maxgap
+        // additional info to calculate : mingap & maxgap in the tree
         int max,min;
+        int mingap;
 
 
         Node(int d) {
@@ -30,6 +63,8 @@ public class AvlTreeV1 {
             sum = d ;
 
             max = min = d;
+            mingap = Integer.MAX_VALUE;
+
         }
     }
 
@@ -53,6 +88,8 @@ public class AvlTreeV1 {
             return n.sum;
     }
 
+
+    // add. info for min max gap
     int getMax(Node n)
     {
         if(n == null) return -1;
@@ -65,7 +102,11 @@ public class AvlTreeV1 {
         else return n.min;
     }
 
-
+    int getMingap(Node n)
+    {
+        if( n != null) return n.mingap;
+        else return Integer.MAX_VALUE;         // as our defn : we put mingap as +ve infinity at leaves
+    }
 
     /*
         2 rotate functions ( sonu & monu of avl trees ) : rotation is nothing but some pointer changes ! thts it
@@ -98,6 +139,9 @@ public class AvlTreeV1 {
         n.max = updateMax(n);
         temp.max = updateMax(temp);
 
+        n.mingap = updateMingap(n);
+        temp.mingap = updateMingap(temp);
+
 
         return temp;      // bcz 'n' is now changed after the rotation so u return tht node which came up bcz of rotation
     }
@@ -126,6 +170,9 @@ public class AvlTreeV1 {
         n.max = updateMax(n);
         temp.max = updateMax(temp);
 
+        n.mingap = updateMingap(n);
+        temp.mingap = updateMingap(temp);
+
         return temp;
     }
 
@@ -142,7 +189,13 @@ public class AvlTreeV1 {
 
     public int updateSum(Node n) { return getSum(n.left) + getSum(n.right) + n.data ; }
 
-    public int updateMin(Node n)
+
+    // additional methods req for updating max & min at the node
+
+    // > min at the node is : Min( node.data, min(lst) , min(rst) )
+    // > same for maximum
+
+    public int updateMin(Node n)       // tk care of segmentaion fault while updating
     {
 
         if(n.left == null)
@@ -152,7 +205,7 @@ public class AvlTreeV1 {
             else return n.right.min < n.data ? n.right.min : n.data;
         }
 
-        else if(n.right == null)          // here we came means left link is not null
+        else if(n.right == null)    // here we came means left link is not null
         {
             return n.left.min < n.data ? n.left.min : n.data;
         }
@@ -192,6 +245,37 @@ public class AvlTreeV1 {
             if(n.data > j) return n.data;
             else return j;
         }
+    }
+
+
+    // mingap = MIN( mingap(lst) , mingap(rst) , max of lst - n.data , n.data - min of rst )    : think on it , its interesting !
+
+    public int updateMingap(Node n)
+    {
+        int j = Math.min( getMingap(n.left) , getMingap(n.right) );
+
+        int k = -1;
+
+        if(n.left != null ) {
+            if(n.right != null)
+            {
+                k = Math.min(n.data - getMax(n.left), getMin(n.right) - n.data);
+            }
+            else k = n.data - getMax(n.left);
+        }
+
+        else if(n.right != null)      // if left link is null and right is not
+        {
+            k= getMin(n.right) - n.data;
+        }
+        else      // IF BOTH are null
+        {
+            k = Integer.MAX_VALUE; }
+
+
+        int mingap = Math.min(j,k);
+
+        return mingap;
     }
 
     public int checkBalance(Node n)
@@ -239,6 +323,9 @@ public class AvlTreeV1 {
 
         root.min = updateMin(root);
         root.max = updateMax(root);
+
+        root.mingap = updateMingap(root);
+
 
         int balance;
 
@@ -331,6 +418,9 @@ public class AvlTreeV1 {
 
         root.min = updateMin(root);
         root.max = updateMax(root);
+
+        root.mingap = updateMingap(root);
+
 
         int balance = checkBalance(root);
 
@@ -566,9 +656,13 @@ public class AvlTreeV1 {
         return prefixSum(root,y) - prefixSum(root,x) - y ;     // p(y) gvs sum of all <= y , p(x) gvs sum of all <= x , and we deduct y
     }
 
+    // methods to find maxgap & mingap in O(1) time ! cool
+
     public int maxgap(Node root)
     {
         return root.max - root.min;
     }
+
+    public int mingap(Node root) { return getMingap(root);}
 }
 

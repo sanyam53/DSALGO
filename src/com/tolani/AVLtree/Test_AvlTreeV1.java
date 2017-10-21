@@ -18,7 +18,8 @@ public class Test_AvlTreeV1 {
         at.root = at.insert(at.root,50);
         at.root = at.insert(at.root,25);
 
-       // at.root = at.delete(at.root,50);
+        // at.root = at.delete(at.root,50);     // to debug maxgap
+        // at.root = at.delete(at.root,25);    // to debug mingap
 
         at.levelOrderTraversal(at.root);
 /*
@@ -51,5 +52,7 @@ public class Test_AvlTreeV1 {
         System.out.println("sum of nums " + at.sumOfNums(at.root,10,50));
 
         System.out.println("max gap in the tree is "  + at.maxgap(at.root));
+
+        System.out.println("min gap in the tree is " + at.mingap(at.root));
     }
 }
