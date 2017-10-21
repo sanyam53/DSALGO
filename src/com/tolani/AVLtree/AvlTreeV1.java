@@ -16,6 +16,10 @@ public class AvlTreeV1 {
         int NoOfNodes;   // this is : NN(Lst) + NN(Rst) + 1
         int sum;         // this is : sum(lst) + sum(rst) + this.data ;
 
+        // additional info to calculate : mingap & maxgap
+        int max,min;
+
+
         Node(int d) {
             data = d;
             left = right = null;
@@ -24,6 +28,8 @@ public class AvlTreeV1 {
 
             NoOfNodes = 1;
             sum = d ;
+
+            max = min = d;
         }
     }
 
@@ -45,6 +51,18 @@ public class AvlTreeV1 {
         if(n == null) return 0;
         else
             return n.sum;
+    }
+
+    int getMax(Node n)
+    {
+        if(n == null) return -1;
+        else return n.max;
+    }
+
+    int getMin(Node n)
+    {
+        if(n == null) return -1;
+        else return n.min;
     }
 
 
@@ -73,6 +91,14 @@ public class AvlTreeV1 {
         n.sum = updateSum(n);
         temp.sum = updateSum(temp);
 
+        // additional code for min-max gap
+        n.min = updateMin(n);
+        temp.min = updateMin(temp);
+
+        n.max = updateMax(n);
+        temp.max = updateMax(temp);
+
+
         return temp;      // bcz 'n' is now changed after the rotation so u return tht node which came up bcz of rotation
     }
 
@@ -93,6 +119,13 @@ public class AvlTreeV1 {
         n.sum = updateSum(n);
         temp.sum = updateSum(temp);
 
+        // additional code for min-max gap
+        n.min = updateMin(n);
+        temp.min = updateMin(temp);
+
+        n.max = updateMax(n);
+        temp.max = updateMax(temp);
+
         return temp;
     }
 
@@ -108,6 +141,58 @@ public class AvlTreeV1 {
     }
 
     public int updateSum(Node n) { return getSum(n.left) + getSum(n.right) + n.data ; }
+
+    public int updateMin(Node n)
+    {
+
+        if(n.left == null)
+        {
+            if(n.right == null) return n.data;
+
+            else return n.right.min < n.data ? n.right.min : n.data;
+        }
+
+        else if(n.right == null)          // here we came means left link is not null
+        {
+            return n.left.min < n.data ? n.left.min : n.data;
+        }
+
+        else
+        {
+            int j=0;
+
+            if(n.left.min > n.right.min) j = n.right.min;
+            else j= n.left.min;
+
+            if(n.data < j) return n.data;
+            else return j;
+        }
+    }
+
+    public int updateMax(Node n)          // tk cr while updating u compare max of subtree with key val of root , not d max of root , bcz whn
+                                                // it rotates then max n min of root are invalidated so dnt use them
+    {
+        if(n.left == null)
+        {
+            if(n.right == null) return n.data;
+
+            else return n.right.max > n.data ? n.right.max : n.data;
+        }
+
+        else if(n.right == null)          // here we came means left link is not null
+        {
+            return n.left.max > n.data ? n.left.max : n.data;
+        }
+
+        else
+        {   int j=0;
+            if(n.left.max < n.right.max) j = n.right.max;
+            else j= n.left.max;
+
+            if(n.data > j) return n.data;
+            else return j;
+        }
+    }
 
     public int checkBalance(Node n)
     {
@@ -149,6 +234,11 @@ public class AvlTreeV1 {
         root.NoOfNodes = updateNoOfNodes(root);
 
         root.sum = updateSum(root);
+
+        // add code for min max gap
+
+        root.min = updateMin(root);
+        root.max = updateMax(root);
 
         int balance;
 
@@ -236,6 +326,11 @@ public class AvlTreeV1 {
         root.NoOfNodes = updateNoOfNodes(root);
 
         root.sum = updateSum(root);
+
+        // add code for min max gap
+
+        root.min = updateMin(root);
+        root.max = updateMax(root);
 
         int balance = checkBalance(root);
 
@@ -345,7 +440,7 @@ public class AvlTreeV1 {
 
     public int FindRank(Node root, int key)
     {
-        int rank = 0;     // intializing it to 1 bcz rank(node) = #elements > key in data set + 1 ; so bttr to tk it 1
+        int rank = 0;
         Node t = root;
 
         while(t != null)
@@ -469,6 +564,11 @@ public class AvlTreeV1 {
     public int sumOfNums(Node root,int x , int y)
     {
         return prefixSum(root,y) - prefixSum(root,x) - y ;     // p(y) gvs sum of all <= y , p(x) gvs sum of all <= x , and we deduct y
+    }
+
+    public int maxgap(Node root)
+    {
+        return root.max - root.min;
     }
 }
 

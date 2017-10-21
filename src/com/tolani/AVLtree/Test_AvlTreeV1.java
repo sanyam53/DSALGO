@@ -18,6 +18,8 @@ public class Test_AvlTreeV1 {
         at.root = at.insert(at.root,50);
         at.root = at.insert(at.root,25);
 
+       // at.root = at.delete(at.root,50);
+
         at.levelOrderTraversal(at.root);
 /*
         // explore below code to debug the deletion
@@ -47,5 +49,7 @@ public class Test_AvlTreeV1 {
         System.out.println("sum is " + at.prefixSum(at.root,50));
 
         System.out.println("sum of nums " + at.sumOfNums(at.root,10,50));
+
+        System.out.println("max gap in the tree is "  + at.maxgap(at.root));
     }
 }
