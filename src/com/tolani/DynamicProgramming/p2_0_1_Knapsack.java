@@ -54,7 +54,33 @@ public class p2_0_1_Knapsack {
             System.out.println();
         }  // */
 
+        printCombination(v,n,W,wt);
 
         return v[n][W];
+    }
+
+    public static void printCombination(int[][] v,int n , int W , int[] wt)
+    {
+        int i= n;
+        int j= W;
+
+        while(j >=1)
+        {
+            while(i >=1)
+            {
+                if(v[i][j] == v[i-1][j])     // means 1st optin : we didnt picked the ith item
+                {
+                    i=i-1;      // we reduce the item set to be first (i-1) items now
+                }
+                else            // this means we picked ith item so we print it and reduce capacity j
+                {
+                    System.out.print(i + " ");
+                    j = j - wt[i-1];           // so we reduce the capacity by weight of ith item
+                }
+            }
+        }
+        System.out.println();
+
+
     }
 }
