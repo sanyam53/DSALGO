@@ -70,7 +70,7 @@ public class p1_coinChangeV1 {
             }
         }
 
-        /*  printing the table if u wnt to see the table entries
+        // /* printing the table if u wnt to see the table entries
 
         for(int i=0; i <=a ; i++)
         {
@@ -81,7 +81,7 @@ public class p1_coinChangeV1 {
                 System.out.print("  " + v[i][j] + "  ");       // entries in the table
             }
             System.out.println();
-        }*/
+        }  // */
 
         printCombination(v,amount,coins);
 
