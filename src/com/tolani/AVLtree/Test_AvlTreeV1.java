@@ -54,5 +54,7 @@ public class Test_AvlTreeV1 {
         System.out.println("max gap in the tree is "  + at.maxgap(at.root));
 
         System.out.println("min gap in the tree is " + at.mingap(at.root));
+
+        System.out.println("mingap bw x & y is : " + at.mingap(at.root,25,50));
     }
 }

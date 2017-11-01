@@ -458,16 +458,33 @@ public class AvlTreeV1 {
 
     public Node inorderPredecessor(Node root,int k)
     {
-        Node t;
-        Node key = search(root,k);    // we are returning a ptr to tht node in a tree so we cn traverse ahead
+        Node t = search(root,k);    // we are returning a ptr to tht node in a tree so we cn traverse ahead
 
-        if(key.left != null)
+        if(t.left != null)
         {
-            t = key.left;
+            t = t.left;
 
             while(t.right != null)
             {
                 t = t.right;
+            }
+
+            return t;
+        }
+
+        return null;
+    }
+
+    public Node inorderSuccesor(Node root,int k)
+    {
+        Node t = search(root,k);
+
+        if(t.right != null)
+        {
+            t = t.right;
+
+            while (t.left != null) {
+                t = t.left;
             }
 
             return t;
@@ -664,5 +681,81 @@ public class AvlTreeV1 {
     }
 
     public int mingap(Node root) { return getMingap(root);}
+
+    // modifying functions a bit : mingap(x,y) & maxgap(x,y) : give the mingap & maxgap whr nums are x <= nums <= y ( not strictly )
+
+    public int maxgap(Node root , int xval , int yval)
+    {
+        return -1; // not impn yet
+    }
+
+    public int mingap(Node root , int x , int y)
+    {
+        int mingap = Integer.MAX_VALUE;
+
+        if(y < root.data) return mingap(root.left,x,y);       // both on the lhs side : when y is strictly < root.data
+                        // if u dnt put return here then trouble is tht it will reintialize mingap : so tc
+        else if(x > root.data) return mingap(root.right,x,y);      // both on the rhs side : whn x is strictly > root.data
+
+        else if(x <= root.data && y >= root.data)      // both on the oppsite side : branching is happning here of x & y: so start searching thm
+        {                                               // or here one cn be root itself also
+            Node t = root;    // now lets start searching for 'x' first
+
+            while( t != null )
+            {
+                if(x < t.data)        // means x is smaller and y is on rhs , so consider mingap on lst's rhs bcz those elemnts are > x && < y
+                {
+                    mingap = Math.min(mingap,t.data - t.left.max);
+                    t = t.left;
+                }
+
+                else if( x > t.data )
+                {
+                    // if x is on rhs then do nothing bcz u r ignoring number which are smaller than 'x'
+                    t = t.right;
+                }
+
+                else // (x == t.data)     // whn u find the num 'x' then worry abt nums tht r on the rhs bcz those are > x && <y
+                {
+
+                    if(t.right != null) {
+                        mingap = Math.min(mingap,t.right.min - t.data);
+                    }
+                    mingap = Math.min(mingap,getMingap(t.right));
+                    break;
+                }
+            }
+
+            t = root;           // now we will start searching for the 'y' and its symmetry of wt we done in case of 'x'
+
+            while(t != null)
+            {
+                if(y > t.data)
+                {
+                    mingap = Math.min(mingap,t.right.min - t.data);
+                    t = t.right;
+                }
+
+                else if( y < t.data)            // ignore all the nums which are > y
+                {
+                    t = t.left;
+                }
+
+                else   // y == t.data
+                {
+                    if(t.left!= null)
+                    {
+                        mingap = Math.min(mingap,t.data-t.left.max);
+                    }
+
+                    mingap = Math.min(mingap,getMingap(t.left));
+                    break;
+                }
+            }
+        }
+
+        return mingap;
+
+    }
 }
 
