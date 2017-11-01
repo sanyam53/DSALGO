@@ -7,14 +7,14 @@ import static com.tolani.DynamicProgramming.p4_LongestCommonSubseqn.printTable;
 public class p7_CuttingRodCoremanProblem {
 
     public static void main(String[] args) {
-        int[] prices = {2, 5, 9, 6};
+        int[] prices = {2, 5, 9, 6};  // profits u cn make by sellling pieces of length 1 , 2 ,3 ,4 respectively
 
-        int len = 5;     // length
+        int len = 5;     // length of rod u are given
 
         // recursive approach : >     System.out.println( cutRodRecursive(prices,len) );
 
         System.out.println(bottomUp(prices, len));
-
+        System.out.println(bottomUpSpaceEff(prices,len));
 
         // test case 2 :
 
@@ -38,8 +38,17 @@ public class p7_CuttingRodCoremanProblem {
         return max;
     }
 
+    // here table will be : rows are the pieces of length tht are allowed to take  , colns are the total length we wnt to make using pieces
+    // state v(i,j) = max profit we cn make using first i pieces ( with respctv lens) to make total length 'j'
+
+    // intialization is v(i,0) = v(0,j) =0;
+
+    // v(i,j) = if we pick ith piece of lenght 'i' then we will add the profit we cn mk using tht piece and now we hv to consider remaining len
+                // means p[i] + v(i,j-i)    : means now using the same set of pieces (first i) we wnt to mk length 'j-i' to maximize profit
+    // if we dnt pick ith piece then it is simple tht using i-1 pieces (of resp len) we ll mk profit : which is v(i-1,j)
+    // so we will choose maximum of abv two but tk care tht 1st optin is only avlbl when "total length" >= "piece length"
+
     public static int bottomUp(int[] prices, int n) {
-        int max = Integer.MIN_VALUE;
 
         int plen = prices.length;    // length of pieces tht are allowed
 
@@ -72,4 +81,33 @@ public class p7_CuttingRodCoremanProblem {
 
             return v[plen][n];
     }
+
+    public static int bottomUpSpaceEff(int[] p ,int len)
+    {
+        int[] v = new int[len+1];    // 0 to 5 : v[6]
+
+        v[0]=0;
+
+        for(int totalLen=1 ; totalLen <= len ; totalLen++)       // this is total length we wnt to mk
+        {
+             v[totalLen] = v[totalLen-1];       // if u exclude the jth piece then tk the previous entry
+
+            for(int pieceLen=1 ;pieceLen <= p.length &&  pieceLen <= totalLen ; pieceLen++)     // this is pieces of len we allwd
+            {
+                if( (totalLen >= pieceLen) && ( p[pieceLen-1] + v[totalLen-pieceLen] ) > v[totalLen])      // if u wnt to pick jth item then
+                {
+                    v[totalLen] = p[pieceLen-1] + v[totalLen-pieceLen];
+                }
+            }
+
+        }
+
+        for(int i : v)
+        {
+            System.out.print(i + " ");
+        }
+
+        return v[len];
+    }
+
 }
