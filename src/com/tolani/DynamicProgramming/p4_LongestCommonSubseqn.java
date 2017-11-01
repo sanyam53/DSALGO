@@ -57,6 +57,9 @@ public class p4_LongestCommonSubseqn {
         return L[n][m];
     }
 
+    // thr can be many LCS pssble : u cant print all of them efficiently if they happn to be
+    // O(2^n) : so u print anyone and ignore others
+
     public static void printLCS(int[][] L , char[] x , char[] y)
     {
         int n = x.length;
