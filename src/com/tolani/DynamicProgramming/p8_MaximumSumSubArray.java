@@ -19,6 +19,8 @@
 *
 *       t.c is O(n) and s.c is O(1) ! cool
 *
+*   // note : we took LSS(1..n-1) here in req eqn ? why ? : bcz subarray need to be contiguous
+*
 * */
 
 
