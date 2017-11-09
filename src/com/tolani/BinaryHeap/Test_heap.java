@@ -8,6 +8,7 @@ public class Test_heap {
 
     public static void main(String[] args)
     {
+
         MyHeap heap = new MyHeap(10);
 
         heap.insert(10);
@@ -20,8 +21,17 @@ public class Test_heap {
         heap.insert(15);
         heap.insert(1);
 
+        //
+        heap.insert(99);
+        heap.insert(35);
+        heap.insert(22);
+        heap.insert(21);
+       // heap.insert(222);       : this will give heap overflow
+        //
+
+
         heap.displayHeap();
-        System.out.println("current heap size " + heap.heap_size);
+        System.out.println("current heap size " + heap.heap_size);      // heap size is 10 means from indices 0 to 9 thr r elements in heap
         int ans = heap.deleteMin();
         System.out.println("min elemnt we extracted is " + ans);
         heap.displayHeap();
@@ -34,8 +44,11 @@ public class Test_heap {
         heap.displayHeap();
         System.out.println("heapsize " + heap.heap_size);
 
-     //   int[] ansArr = heap.buildHeap(new int[]{1,5,7,0,-2,100,50,-8});
 
-       // System.out.println(Arrays.toString(ansArr));
+        MyHeap heapobj = MyHeap.buildHeap(new int[]{1,5,7,0,-2,100,50,-8});
+
+        heapobj.displayHeap();
+
+        System.out.println("heap size is : " + heapobj.heap_size);
     }
 }

@@ -1,3 +1,6 @@
+
+// we are implemeting the min heap ok
+
 package com.tolani.BinaryHeap;
 
 import java.util.Arrays;
@@ -7,7 +10,7 @@ public class MyHeap {
     int heap_size;   // current size of the heap
     int capacity;     // capacity of the heap
 
-    int heap[];        // array to hold the elemnts : we r implmntng heap using arrays of type ints here specifically
+    int heap[];        // array to hold the elemnts : we r implmntng heap using array of type ints here specifically
 
     MyHeap(int capacity) {
         heap_size = 0;                // intialize heapsize ,capacity and the array
@@ -43,6 +46,10 @@ public class MyHeap {
         {
             int j = Math.min(heap[lc],heap[rc]);      // finding minimum frm lc and rc and call it 'j'
 
+            // but u wnt an index not an element ok
+            if(j == heap[lc]) j= lc;
+            else j = rc;
+
             if (heap[i] > heap[j])       // parent node is bigger than one of the child node then swap it bcz its min heap prprty violated
             {
                 swap(i, j);
@@ -54,7 +61,7 @@ public class MyHeap {
             } else break;           // no swapping happns means min heap property is satisfying already: so break
         }
 
-        if (lc == heap_size - 1 && heap[lc] < heap[i])     // this is the one case u need to handle which is not handled by abv logic
+        if (lc == (heap_size - 1) && heap[lc] < heap[i])     // this is the one case u need to handle which is not handled by abv logic
         {
             swap(lc, i);
         }
@@ -87,7 +94,7 @@ public class MyHeap {
             return;                                    // to terminate program here itself just return
         }
 
-        heap[heap_size] = data;
+        heap[heap_size] = data;          // heap_size is a ptr whr u insert in the heap , nd u incrmnt it to next location aftr insertion
 
         bottomUpHeapify(heap_size);
 
@@ -109,8 +116,8 @@ public class MyHeap {
 
     public int delete(int index)     // delete an arbitrary node
     {
-        // if u wnt to delete an arbitrary node then u ve to serach for it frst then to delete it and to call heapify on it : this is O(n) overal
-        // instead an optimized clever approach is to decrease a key of it to (min-1) and deleting minimum
+        // if u wnt to delete an arbitrary node then u ve to search for it frst then to delete it and to call heapify on it : this is O(n) overal
+        // instead an optimized clever approach is to decrease a key of it to (min-1) and deleting minimum : which is logn time
 
         changeKey(index,getMin()-1);
         int ans = deleteMin();
@@ -122,7 +129,7 @@ public class MyHeap {
         int tempdata = heap[index];
         heap[index] = newdata;
 
-        if(newdata < tempdata)      // decreasekey
+        if(newdata < tempdata)      // decreasekey : if key is decreased then in min heap it affects on the abv part so u call bottomUP
         {
             bottomUpHeapify(index);
         }
@@ -136,14 +143,23 @@ public class MyHeap {
         }
     }
 
-    public int[] buildHeap(int[] arr)
+    public static MyHeap buildHeap(int[] arr)
     {
-        for(int i=(arr.length/2); i >=0 ; i--)        // internal nodes are frm 1 to n/2 & leaves r frm (n/2+1) to n
+        MyHeap heapObj = new MyHeap(arr.length);
+
+        for(int i=0 ; i < arr.length; i++)
         {
-            topDownHeapify(i); // u hv to pass an array here to perfrom topdown on tht array :::
+            heapObj.heap[heapObj.heap_size++] = arr[i];
         }
 
-        return arr;
+       // heapObj.heap_size = arr.length ;  // bcz heap_size is an index in heap so starting frm 0 to 7 :but size we r considering is 8 ok
+
+        for(int i = (arr.length/2) -1 ; i >= 0 ; i--)        // internal nodes are frm 1 to n/2 & leaves r frm (n/2+1) to n
+        {
+            heapObj.topDownHeapify(i);          // u hv to pass an array here to perfrom topdown on tht array :::
+        }
+
+        return heapObj;
     }
 
     public void displayHeap() {
