@@ -1,15 +1,11 @@
 package com.tolani.BinaryHeap;
 
-import com.tolani.Tree_Tree.MyTree;
-
-import java.util.Arrays;
-
-public class Test_heap {
+public class Test_MinHeap {
 
     public static void main(String[] args)
     {
 
-        MyHeap heap = new MyHeap(10);
+        MyMinHeap heap = new MyMinHeap(10);
 
         heap.insert(10);
         heap.insert(20);
@@ -45,7 +41,7 @@ public class Test_heap {
         System.out.println("heapsize " + heap.heap_size);
 
 
-        MyHeap heapobj = MyHeap.buildHeap(new int[]{1,5,7,0,-2,100,50,-8});
+        MyMinHeap heapobj = MyMinHeap.buildHeap(new int[]{1,5,7,0,-2,100,50,-8});
 
         heapobj.displayHeap();
 

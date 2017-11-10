@@ -1,18 +1,16 @@
-
-// we are implemeting the min heap ok
-
 package com.tolani.BinaryHeap;
 
 import java.util.Arrays;
 
-public class MyHeap {
+public class MyMaxHeap {
+
 
     int heap_size;   // current size of the heap
     int capacity;     // capacity of the heap
 
     int heap[];        // array to hold the elemnts : we r implmntng heap using array of type ints here specifically
 
-    MyHeap(int capacity) {
+    MyMaxHeap(int capacity) {
         heap_size = 0;                // intialize heapsize ,capacity and the array
         this.capacity = capacity;
         heap = new int[capacity];
@@ -32,7 +30,7 @@ public class MyHeap {
         return (2 * i + 2);
     }
 
-    public int getMin() {
+    public int getMax() {
         return heap[0];        // root of the tree means elemnt at the 0th index in the array
     }
 
@@ -44,13 +42,13 @@ public class MyHeap {
 
         while (rc < heap_size)       // tc : we put this cond bcz rc is the last one in the tree so if it exceeds the heapsize thn outofbounds
         {
-            int j = Math.min(heap[lc],heap[rc]);      // finding minimum frm lc and rc and call it 'j'
+            int j = Math.max(heap[lc],heap[rc]);      // finding minimum frm lc and rc and call it 'j'
 
             // but u wnt an index not an element ok
             if(j == heap[lc]) j= lc;
             else j = rc;
 
-            if (heap[i] > heap[j])       // parent node is bigger than one of the child node then swap it bcz its min heap prprty violated
+            if (heap[i] < heap[j])       // parent node is bigger than one of the child node then swap it bcz its min heap prprty violated
             {
                 swap(i, j);
 
@@ -61,7 +59,7 @@ public class MyHeap {
             } else break;           // no swapping happns means min heap property is satisfying already: so break
         }
 
-        if (lc == (heap_size - 1) && heap[lc] < heap[i])     // this is the one case u need to handle which is not handled by abv logic
+        if (lc == (heap_size - 1) && heap[lc] > heap[i])     // this is the one case u need to handle which is not handled by abv logic
         {
             swap(lc, i);
         }
@@ -74,7 +72,7 @@ public class MyHeap {
     public void bottomUpHeapify(int i) {
         int parent = getParent(i);
 
-        while (i > 0 && heap[i] < heap[parent])       // last node to be compared with parent is the node just below the parent means i > 0
+        while (i > 0 && heap[i] > heap[parent])       // last node to be compared with parent is the node just below the parent means i > 0
         {
             swap(i, parent);
             i = parent;
@@ -102,7 +100,7 @@ public class MyHeap {
 
     }
 
-    public int deleteMin()
+    public int deleteMax()
     {
         if(heap_size == 0) {System.out.println("underflow"); return -1;}
 
@@ -119,21 +117,21 @@ public class MyHeap {
         // if u wnt to delete an arbitrary node then u ve to search for it frst then to delete it and to call heapify on it : this is O(n) overal
         // instead an optimized clever approach is to decrease a key of it to (min-1) and deleting minimum : which is logn time
 
-        changeKey(index,getMin()-1);
-        int ans = deleteMin();
+        changeKey(index,getMax()+1);
+        int ans = deleteMax();
         return ans;
     }
 
-    public void changeKey(int index , int newdata)
+    public void changeKey(int index , int newData)
     {
-        int tempdata = heap[index];
-        heap[index] = newdata;
+        int oldData = heap[index];
+        heap[index] = newData;
 
-        if(newdata < tempdata)      // decreasekey : if key is decreased then in min heap it affects on the abv part so u call bottomUP
+        if(newData > oldData)
         {
             bottomUpHeapify(index);
         }
-        else if(newdata > tempdata)
+        else if(newData < oldData)        // decreasekey : if key is decreased then in max heap it affects on the below part so u call top down
         {
             topDownHeapify(index);
         }
@@ -143,9 +141,9 @@ public class MyHeap {
         }
     }
 
-    public static MyHeap buildHeap(int[] arr)
+    public static MyMaxHeap buildHeap(int[] arr)
     {
-        MyHeap heapObj = new MyHeap(arr.length);
+        MyMaxHeap heapObj = new MyMaxHeap(arr.length);
 
         for(int i=0 ; i < arr.length; i++)
         {
