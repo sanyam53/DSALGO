@@ -6,18 +6,18 @@
 
 
 package com.tolani.Graphs;
-import java.util.LinkedList;
+import java.util.*;
 
 public class Graph2_v2 {
 
-    int noOfVertices;                                   // 'n' is the no of vertices in the graph
-    LinkedList<Vertex> adjList[];          // array of linked lists : which holds vertices as nodes : Vertex is a class defined by us
+    int noOfVertices;                               // 'n' is the no of vertices in the graph
+    Map<Integer,Vertex> vertexList;                 // we are creating a hashmap of vertices in the graph
     GraphType gtype;
 
     public static class Vertex
     {
         int data;
-        Vertex next;
+        ArrayList<Integer> adjList;       // this will contain integer of the vertices that are connected to this vertex object
         Color color;      // Color is an enum type
         int piValue;
 
@@ -26,6 +26,8 @@ public class Graph2_v2 {
             this.data = data;
             this.color = Color.GREEN;       // Initalization with green color
             this.piValue = -1;
+
+            adjList = new ArrayList<>();     // intializing
         }
 
         public void setColor(Color c)
@@ -44,11 +46,12 @@ public class Graph2_v2 {
         this.noOfVertices = size;
         this.gtype = type;
 
-        adjList = new LinkedList[noOfVertices];
+        vertexList = new HashMap<>(noOfVertices);
 
         for(int i=0 ; i < noOfVertices ; i++)
         {
-            adjList[i] = new LinkedList<Vertex>();      // creating a linked list at each vertex
+            Vertex v = new Vertex(i);       // we r creating a vertex object with indices
+            vertexList.put(i,v);            // now we are adding it to the hashmap (vertexList)
         }
     }
 
@@ -56,20 +59,17 @@ public class Graph2_v2 {
     {
         if(this.gtype == GraphType.DIRECTED)
         {
-            Vertex vObj = new Vertex(v);
-
-            adjList[u].addFirst(vObj);
+            Vertex uObj =  vertexList.get(u);    // this will return a corresponding vertex object
+            uObj.adjList.add(v);                // now u access the adjacency list of tht vertex obj and add the correspndng edge in it
         }
 
         else     // if graph is undirected u add edges twice
         {
-            Vertex vObj = new Vertex(v);
-            Vertex uObj = new Vertex(u);
+           Vertex uObj = vertexList.get(u);
+           uObj.adjList.add(v);
 
-            this.adjList[u].addFirst(vObj);      // we are adding at the head of the linked list
-
-            // if it is undirected graph then u ve to add an edge to the verte v's linked list also
-            this.adjList[v].addFirst(uObj);
+           Vertex vObj = vertexList.get(v);
+           vObj.adjList.add(u);
         }
 
     }
@@ -79,18 +79,23 @@ public class Graph2_v2 {
 
     public void displayGraph()
     {
-        for(int i =0 ; i < this.noOfVertices; i++)
-        {
-            System.out.print("vertex " + i + "=> ");
+       for(Vertex v : vertexList.values())
+       {
+           System.out.print(v.data + " => ");
 
-            for(Vertex x : this.adjList[i])
+            Iterator i = v.adjList.iterator();
+
+            while(i.hasNext())
             {
-                System.out.print( x.data + " -> ");
+                System.out.print(i.next() + " -> ");
             }
 
             System.out.println();
-        }
+       }
     }
+
+
+
 
 }
 
