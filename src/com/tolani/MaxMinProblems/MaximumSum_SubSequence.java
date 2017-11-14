@@ -17,7 +17,7 @@
 
 package com.tolani.MaxMinProblems;
 
- import static com.tolani.Sorting.FindMedian_LinearTime.displayArr;
+ import static com.tolani.Sorting.Deterministic_Pivot.displayArr;
 
  public class MaximumSum_SubSequence {
 
