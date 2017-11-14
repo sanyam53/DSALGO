@@ -1,9 +1,11 @@
+// actually this is the deterministic pivot function
+
 package com.tolani.Sorting;
 
 import static com.tolani.Sorting.StandardBubbleSort.BubbleSort;
 import static com.tolani.Sorting.StandardQuickSort.swap;
 
-public class FindMedian_LinearTime {
+public class Deterministic_Pivot {
 
     static int[] a = {10,12,50,100,4,5,44,0,2,77,99,66,22,25};
 
