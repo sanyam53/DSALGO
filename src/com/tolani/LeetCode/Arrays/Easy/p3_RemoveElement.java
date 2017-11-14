@@ -20,7 +20,7 @@
 
 package com.tolani.LeetCode.Arrays.Easy;
 
-import static com.tolani.Sorting.FindMedian_LinearTime.displayArr;
+import static com.tolani.Sorting.Deterministic_Pivot.displayArr;
 
 public class p3_RemoveElement {
 

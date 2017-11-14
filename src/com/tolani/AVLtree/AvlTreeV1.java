@@ -77,7 +77,7 @@ public class AvlTreeV1 {
     // addtional method of NN
     int getNoOfNodes(Node n)
     {
-        if(n == null) return 0;
+        if(n == null) return 0;        // for null : no of nodes defined as 0
         else return n.NoOfNodes;
     }
 
@@ -592,6 +592,8 @@ public class AvlTreeV1 {
         {
             return FindElementWithRank(root.left,rank-(root.right.NoOfNodes+1));    // so u going on lhs so u ignr the larger elements
                                                                                         // which affects the rank
+
+            // this call will be fwr(root.left,rank - rankOfRoot) i think !
         }
         else
             return FindElementWithRank(root.right,rank);

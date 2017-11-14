@@ -24,7 +24,7 @@ public class BST {
         Node t = new Node(key);
 
         if(root == null) {
-            root = t;
+            root = t;             // tc : u ve to assign 't' to root
             return root;      // so we r returning a reference of a node we wnt to insert
         }
 
@@ -37,7 +37,7 @@ public class BST {
             root.left = insert(root.left,key);
         }
 
-        return root;    // returning a pointer to the unchanged node
+        return root;    // returning a pointer to the unchanged node : it will return to the parent ptr one by one
 
     }
 
@@ -47,7 +47,10 @@ public class BST {
 
         if(root.data == key) return root;
 
-        else if (root.data < key) return search(root.right,key);
+        else if (root.data < key)
+        {
+            return search(root.right,key);        // u ve to return here : u dnt hv to assign a node to the link as in insert u did
+        }
 
         else     // tc : if u put everythng as an elif then u ve to explicitly gv return statemnt. !
         {
@@ -61,7 +64,7 @@ public class BST {
         Node t;
         Node key = search(root,k);    // we are returning a ptr to tht node in a tree so we cn traverse ahead
 
-        if(key.left != null)
+        if(key.left != null)        // u go left once and then u go the rightmost !
         {
             t = key.left;
 
@@ -96,12 +99,12 @@ public class BST {
         else           // this means u r reached at the node u wnt to delete means root.data == key , now chck fr the 3 cases of deletion
         {
             if(root.left == null)      // if left ptr is null  OR  if bth will be null then it is returning a right ptr means returning null
-            {
+            {                                                                                                   // to its parent : this is imp
                 // in this case u delete the node and just join the right child if right child is not null
                 return root.right;
             }
 
-            else if(root.right == null)   // if right ptr is null
+            else if(root.right == null)   // if right ptr is null   and we got to knw tht left is not null frm the frst condition
             {
                 return root.left;
             }
@@ -119,7 +122,7 @@ public class BST {
             }
         }
 
-        return root;
+        return root;      // returning a ptr to parent everytime u go through a return frm recursive calls
     }
 
     private void swap(Node a , Node b) {

@@ -1,7 +1,7 @@
 /*
 *   some points to tc : > it is imp how u define height here in avl tree impn , bcz while impn if u consider height of null as 0 then
 *                           height of leaf node should be 1 , tht means balance factor = height(lst) - height(rst) : suppse u ve a node with
-*                           one right child and left child as null means balance factor fr tht node is (0-1) = -1
+*                           one right child , and left child is null means balance factor fr tht node is (0-1) = -1
 *
 *   parent ptr needed ? : > no it isnt needed bcz when u perform standard BST insertion / deletion , firstly u will go till the positin
 *                           whr u wnt to insert but aftr inserting u start returning to the parent till u reach the root node
@@ -23,7 +23,7 @@
 *
 *   in deletion we cant use key value to decide on the case , bcz key is already deletd , so we ve to do it in other way
 *
-*      lets say balance factor is < -1 means it is -ve means lst height is lesser thn the rst height means we will rotate left
+*      lets say (balance factor is < -1) means it is -ve means lst height is lesser thn the rst height means we will rotate left
 *                                   : so two cases pssble here : LL and RL ; now to decide the case we cant see the key so we will see
 *                                   the balance factor of the (root.right) : if it is > 0 means it cn be (1) bcz it is balanced
 *                                    (bcz we came frm bottom to find first unbalanced node so root.right is balanced)
@@ -61,7 +61,7 @@ public class AvlTree {
         }
     }
 
-    int height(Node n)
+    int height(Node n)        // u jst return the height which is instance var. of an object node : we dnt find height here
         {
             if(n == null) return 0;       // see we r returning height 0 for the null side
             else return n.height;
@@ -74,12 +74,15 @@ public class AvlTree {
   insertion function where u r returning a node from below level to above level one by one , so just return the new node tht replaced the
   old node after the rotation , dnt update any link
 */
-    public Node leftRotate(Node n)
+    public Node leftRotate(Node n)       // so u r passing the imbalanced node as an argument to the rotate function
     {
         Node temp = n.right;
         Node t2 = temp.left;
         temp.left = n;
         n.right = t2;
+
+        // we will update the height of the node tht is rotated and the child of it who comes over : bcz other things wr subtrees and they are
+        // just joined as subtrees so no need to update thr height
 
         n.height = updateHeight(n);
         temp.height = updateHeight(temp);
@@ -170,6 +173,7 @@ public class AvlTree {
            root.right = rightRotate(root.right);
            return leftRotate(root);
        }
+
       // here logic of avltree rotatins finishes and as we return the next node abv
 
        return root;

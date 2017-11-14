@@ -17,7 +17,7 @@
 
 package com.tolani.Stack_Hack;
 
-import static com.tolani.Sorting.FindMedian_LinearTime.displayArr;
+import static com.tolani.Sorting.Deterministic_Pivot.displayArr;
 
 public class Problem_1 {
 
