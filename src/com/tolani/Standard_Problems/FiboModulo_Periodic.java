@@ -2,7 +2,6 @@
 *   fibo(n) = {fibo(n-1) + fibo(n-2)} % 100
 * */
 
-
 package com.tolani.Standard_Problems;
 
 public class FiboModulo_Periodic {
