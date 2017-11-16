@@ -274,4 +274,6 @@ public class GenericAlgo {
 
     }
 
+    // Minimum Spanning Tree : Prim's Algo
+
 }
