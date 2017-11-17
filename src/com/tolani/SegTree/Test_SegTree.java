@@ -4,16 +4,15 @@ public class Test_SegTree {
 
     public static void main(String[] args)
     {
-        SegTree st = new SegTree();
-
+        int[] ipArr = new int[]{0,2,3,5};
         Operation sumop = new SumOperation();
 
-        int[] iparr = new int[]{1,2,3,4};
+        // so u pass an ipArr and the operation on which u wnt to define a seg tree
 
-        st.createSegTree(iparr , sumop);
+        SegTree st = new SegTree(ipArr,sumop);
 
-        st.displaySegTree(st.stArr);
+        st.displaySegTree();
 
-        System.out.println(st.rangeQuery(iparr,2,3,sumop));
+        System.out.println(st.rangeQuery(ipArr,0,2,sumop));
     }
 }

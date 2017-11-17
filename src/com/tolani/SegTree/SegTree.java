@@ -4,12 +4,13 @@ import java.util.Arrays;
 
 public class SegTree {
 
-    int[] stArr;          // seg tree is nthng but an array of elements : full bin tree impn as an array
-                         // root of the binary tree is always 0
+    int[] segArr;          // seg tree is nthng but an array of elements : full bin tree impn as an array
+                            // root of the binary tree is always 0
+    int segTreeRangeLow;
+    int segTreeRangeHigh;
 
-    public int[] createSegTree(int[] ipArr, Operation operation)       // u will pass the size of an input array
-    {
-        // lets first decide the size of the seg tree : so if ip arr size is in pow of 2 then u create a seg tree of size (2*size -1)
+    /*
+       // lets first decide the size of the seg tree : so if ip arr size is in pow of 2 then u create a seg tree of size (2*size -1)
         // if size isnt in pow of 2 then u create seg tree of size = 2*( nxt value tht is pow of 2 , aftr the size of ip arr tht is gvn) -1
 
         // why 2*n - 1 ? : bcz in full binary tree #of leaves are 'n' then # of internal nodes are "n-1" : so it is in total "2n-1"
@@ -20,78 +21,131 @@ public class SegTree {
         // another way of doing above is simply finding height and allcting  ( 2^ h+1 -1 ) memory
 
         // Allocate memory for segment tree
-        //Height of segment tree
-        int height = (int) (Math.ceil(Math.log(ipArr.length) / Math.log(2)));
+        //Height of segment tree*/
 
-        //Maximum size of segment tree
+// constructor in which we allocate the size and call buildSegTree method
+
+    SegTree(int[] ipArr, Operation operation)       // u will pass the ip arr & and object of an Operation by which segTree is defined
+    {
+        // height of a full binary tree in terms of no of leaves 'N' : which are elements of an ip arr
+
+        int height = (int) (Math.ceil(Math.log(ipArr.length) / Math.log(2)));      // height = log(base2)N =  log(baseE)N / log(baseE)2
+
+        // so now segTree size will be  : 2^(h+1) - 1
         int segTreeSize = 2 * (int) Math.pow(2, height) - 1;            // or  Math.pow(2 , height+1 ) -1  : same thing ok
 
-        stArr = new int[segTreeSize];       // so we allctd memory for our segemnt tree ok
+        segArr = new int[segTreeSize];       // so we allctd memory for our segemnt tree ok
 
-        buildSegTree(stArr,ipArr,0,ipArr.length-1,0,operation);
+        buildSegTree(segArr,0,operation,ipArr,0,ipArr.length-1);
+        // this is called on full range of ip arr frm ( 0 to N-1 ) , and index of a root node from where we will divide the range and go to l.c. , r.c
 
-        return stArr;
-
+        // storing the interval tht segemnt tree representing of an ip array
+        segTreeRangeLow =0;
+        segTreeRangeHigh = (ipArr.length - 1);
     }
 
-    private void buildSegTree(int segmentTree[], int input[], int low, int high,int pos, Operation operation){
-                                                                // low nd high are of ip array , positin is of seg tree starts frm root : 0
-        // if it is leaf then store the value drctly frm an array
-        if(low == high)
+    // method for building a segment tree
+
+    private void buildSegTree(int segArr[],int pos,Operation operation, int ipArr[], int low, int high)
+    {
+
+        if(low == high)             // if it is leaf then store the value drctly frm an array
         {
-            segmentTree[pos] = input[low];
+            segArr[pos] = ipArr[low];
             return;
         }
-        // as it is not a leaf we will do following :
-        // u find mid and call recursively on l.c. and r.c as it is full binary tree
         else
         {
-            int mid = (low + high)/2;       // to recur in two equal halves we found mid
+            // divide the interval in two halves for next level , and recursively call on both intervals with left child nd right child
+
+            int mid = (low + high)/2;
 
             // recur for the left child
-            buildSegTree(segmentTree,input,low,mid,2*pos+1, operation);       // see here positin is left child : whr we recur
+            buildSegTree(segArr,2*pos + 1, operation ,ipArr,low,mid);       // see here positin is left child : whr we recur
             // recur for the right child
-            buildSegTree(segmentTree,input,mid+1,high,2*pos+2, operation);    // here position is r.child : whr we recur
+            buildSegTree(segArr,2*pos+2 , operation ,ipArr,mid+1,high);    // here position is r.child : whr we recur
 
-            // this is the internal node fr sure  : so we will perform an op we wnt and store the value in it
-            segmentTree[pos] = operation.perform(segmentTree[2*pos+1], segmentTree[2*pos+2]);   // this is currnt pos : whr we do op. we wnt nd store
+            // this is the internal node (merge here) : so we will perform an op we wnt and store the value in it : MERGING operation
+            segArr[pos] = operation.perform(segArr[2*pos+1], segArr[2*pos+2]);   // this is currnt pos : whr we do op. we wnt nd store
         }
     }
 
-    public void displaySegTree(int[] segTree)
+    public void displaySegTree()
     {
-        System.out.println(Arrays.toString(segTree));
+        System.out.println(Arrays.toString(segArr));
     }
 
     // variant 1 : two main op in this variant are : 1. update an element , 2. rangeQuery(l,r) like sum of all elemnts frm l to r
 
-    public int rangeQuery(int[] ipArr,int qleft ,int qright,Operation operation)
-    {
-        return rangeQuery2(ipArr,stArr,qleft,qright,0,ipArr.length-1,0,operation);
+    // Query(arr,low,high) : so we can calculate range tht seg tree represnt frm iparr size or we can store in our data strucutre
 
-        // pos is 0 means we start frm the root of the segment tree
+    public int rangeQuery(int[] ipArr, int qlow ,int qhigh ,Operation operation)
+    {
+        // we dnt need an ip array now , we ve segTree ranges and query ranges : so we can work on our seg tree array directly
+
+        return rangeQuery2(qlow,qhigh,this.segTreeRangeLow,this.segTreeRangeHigh,0,operation);
+
     }
 
-    public int rangeQuery2(int[] ipArr,int[] stArr, int qleft , int qright , int lowIpArr, int highIpArr, int pos , Operation op)
+    public int rangeQuery2(int qlow , int qhigh ,int segRangeLow, int segRangeHigh, int pos , Operation op)
     {
-        // if total overlap : if we get readymade overlap like 0 to 4 , 0 to 1 etc is total overlap
-        if(qleft <= lowIpArr && qright >= highIpArr){
-            return stArr[pos];
+        // if total overlap : means segTreeNode's range is completely inside the Query Range
+
+        if(qlow <= segRangeLow && qhigh >= segRangeHigh){
+            return segArr[pos];
         }
 
-        // if no overlap
-        if(qleft > highIpArr || qright < lowIpArr){
-            return 0;      // in case of sum we return 0 , in case of min we return int.max value
+        // if no overlap : means segTreeNode's range is completely outside the Query Range
+
+        if(qlow > segRangeHigh || qhigh < segRangeLow){
+            return op.returnValue();      // in case of sum we return 0 , in case of min we return int.max value
         }
 
-        // partial overlap so we wll do recursion on left n right : means bit on left and bit on right : as ex 0 to 3 , 1 to 4 like this
-        int mid = (lowIpArr+highIpArr)/2;
+        // partial overlap : means segTreeNode's range is paritally inside and/or partially outside
 
-        int val1 = rangeQuery2(ipArr,stArr,qleft,qright,lowIpArr,mid,2*pos + 1,op);
-        int val2 = rangeQuery2(ipArr,stArr,qleft,qright,mid+1,highIpArr,2*pos+2,op);
+        else
+        {
+            int mid = (segRangeLow + segRangeHigh)/2;
 
-        return op.perform(val1,val2);
+            int val1 = rangeQuery2(qlow,qhigh ,segRangeLow,mid ,2*pos + 1,op);
+            int val2 = rangeQuery2(qlow,qhigh ,mid+1,segRangeHigh ,2*pos+2,op);
+
+            return op.perform(val1,val2);
+        }
     }
+
+
+}
+
+
+interface Operation{
+    int perform(int a, int b);
+    int returnValue();
+}
+
+class SumOperation implements Operation{
+    @Override
+    public int perform(int a, int b) {
+        return a+b;
+    }
+
+    public int returnValue()
+    {
+        return 0;
+    }
+}
+
+class MinOperation implements Operation{
+    @Override
+    public int perform(int a, int b){
+        return Math.min(a,b);
+    }
+
+    public int returnValue()
+    {
+        return Integer.MAX_VALUE;
+    }
+}
 
 
 /*
@@ -110,26 +164,3 @@ public class SegTree {
         return num<<1;
     }
 */
-}
-
-
-interface Operation{
-    int perform(int a, int b);
-}
-
-class SumOperation implements Operation{
-
-    @Override
-    public int perform(int a, int b) {
-        return a+b;
-    }
-}
-
-class MinOperation implements Operation{
-    @Override
-    public int perform(int a, int b){
-        return Math.min(a,b);
-    }
-}
-
-
