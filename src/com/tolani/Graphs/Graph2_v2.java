@@ -22,6 +22,27 @@ public class Graph2_v2 {
 
         int priority;
 
+        // new parameters for dfs application
+
+        public int getDiscoveryTime() {
+            return discoveryTime;
+        }
+
+        public void setDiscoveryTime(int discoveryTime) {
+            this.discoveryTime = discoveryTime;
+        }
+
+        public int getFinishTime() {
+            return finishTime;
+        }
+
+        public void setFinishTime(int finishTime) {
+            this.finishTime = finishTime;
+        }
+
+        int discoveryTime;
+        int finishTime;
+
 
         Vertex(int data)
         {
@@ -32,6 +53,8 @@ public class Graph2_v2 {
             adjList = new ArrayList<AdjListNode>();     // intializing
 
             this.priority = Integer.MAX_VALUE;
+
+            discoveryTime = finishTime = -1;
         }
 
         public void setColor(Color c)

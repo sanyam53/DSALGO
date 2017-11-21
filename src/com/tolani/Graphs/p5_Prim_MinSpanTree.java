@@ -91,5 +91,4 @@ public class p5_Prim_MinSpanTree {
 
     }
 
-
 }

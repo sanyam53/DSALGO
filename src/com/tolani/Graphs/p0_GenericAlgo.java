@@ -6,7 +6,7 @@ import com.tolani.Graphs.Graph2_v2.*;
 
 import static com.tolani.Graphs.Color.*;
 
-public class GenericAlgo {
+public class p0_GenericAlgo {
 
     public static void main(String[] args) {
         Graph2_v2 g = new Graph2_v2(5, GraphType.DIRECTED);       // size 5 means vertices frm 0 to 4 : tc here
