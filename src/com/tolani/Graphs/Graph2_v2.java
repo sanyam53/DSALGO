@@ -213,8 +213,3 @@ enum Color
 {
     GREEN,BLACK,RED;
 }
-
-enum GraphType
-{
-    DIRECTED, UNDIRECTED;
-}

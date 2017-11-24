@@ -22,7 +22,7 @@ public class Test_Graph {
 
         // adjacency matrix
         System.out.println();
-        Graph1 g = new Graph1(5);
+        Graph1 g = new Graph1(5,GraphType.UNDIRECTED,IsGraphWeighted.NON_WEIGHTED);
 
         g.addEdge(0,1);     // as graph is undrctd this wl put an edge bw both 0-1 and 1-0
         g.addEdge(2,3);
