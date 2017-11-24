@@ -2,44 +2,78 @@ package com.tolani.Graphs;
 
 //import com.tolani.Graphs.GraphType;
 
+import java.util.Arrays;
+
 public class Graph1 {
 
     int n;                        // #of vertices
-    boolean[][] adjMatrix;            // 2d array
+    public int[][] adjMatrix;            // 2d array
     GraphType gtype;
+    IsGraphWeighted gweight;
 
-    Graph1(int size,GraphType gt)
+    public Graph1(int size,GraphType gt,IsGraphWeighted gw)
     {
         this.n = size;
-        adjMatrix = new boolean[n][n];
+        adjMatrix = new int[n][n];
 
         gtype = gt;
+        gweight = gw;
+    }
+
+
+    public int getN() {
+        return n;
+    }
+
+    public void setN(int n) {
+        this.n = n;
+    }
+
+    public GraphType getGtype() {
+        return gtype;
+    }
+
+    public void setGtype(GraphType gtype) {
+        this.gtype = gtype;
     }
 
     public void addEdge(int u , int v)
     {
         if (gtype == GraphType.DIRECTED) {
-            adjMatrix[u][v] = true;
+            adjMatrix[u][v] = 1;
         }
 
         else      // if its undirected graph then
         {
-            adjMatrix[u][v] = true;
-            adjMatrix[v][u] = true;
+            adjMatrix[u][v] = 1;
+            adjMatrix[v][u] = 1;
+        }
+    }
+
+    public void addWeightedEdge(int u , int v , int weight)
+    {
+
+        if (gtype == GraphType.DIRECTED) {
+            adjMatrix[u][v] = weight;
+        }
+
+        else      // if its undirected graph then
+        {
+            adjMatrix[u][v] = weight;
+            adjMatrix[v][u] = weight;
         }
     }
 
     public void displayGraph()
     {
 
-        for(int j=0 ; j < adjMatrix.length ; j++)
+        for(int i=0 ; i < adjMatrix.length ; i++)
         {
-            System.out.print(j + " : ");
+            System.out.print(i + " : ");
 
-            for(int i=0 ; i < adjMatrix.length ; i++)
+            for(int j=0 ; j < adjMatrix.length ; j++)
             {
-                if(adjMatrix[i][j])System.out.print("1 ");
-                else System.out.print("0 ");
+                System.out.print(adjMatrix[i][j] + " ");
             }
 
             System.out.println();
