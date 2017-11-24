@@ -154,8 +154,8 @@ public class SegmentTree {
         //at pos and mark its children for lazy propagation.
         if (lazy[pos] != 0) {
             segmentTree[pos] += lazy[pos];
-            if (low != high) { //not a leaf node
-                lazy[2 * pos + 1] += lazy[pos];
+            if (low != high) { //not a leaf node  // if tht ws a leaf node in lazy tree then we r done , but if it ws an internal node then
+                lazy[2 * pos + 1] += lazy[pos];     // we will update lazy tree here , we will make the children lazy
                 lazy[2 * pos + 2] += lazy[pos];
             }
             lazy[pos] = 0;
@@ -166,7 +166,7 @@ public class SegmentTree {
             return;
         }
 
-        //total overlap condition
+        //total overlap condition : in the total overlap conditin u will update the particular node and u mk the children lazy in lazy seg tree
         if(startRange <= low && endRange >= high) {
             segmentTree[pos] += delta;
             if(low != high) {
