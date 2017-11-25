@@ -4,6 +4,8 @@ import com.tolani.Graphs.Graph3;
 import com.tolani.Graphs.GraphType;
 import com.tolani.Graphs.IsGraphWeighted;
 
+import java.util.Arrays;
+
 public class p4_SSSP_Bellman_Ford {
 
         public static final int INF = 99999;
@@ -33,6 +35,10 @@ public class p4_SSSP_Bellman_Ford {
             // Taking a O(n) space array D : which will contain distances frm src to all othr vertices
             int[] D = new int[n];
 
+            // pi function : to print the shortest path : pi fun actually sets the immediate predecessor value
+            int[] pi = new int[n];
+            Arrays.fill(pi,-1);
+
             // intialization as : if thr exist a dirct edge then it is w(src,v) else INFINITE
             for(int i=0 ; i < n ; i++)
             {
@@ -41,6 +47,9 @@ public class p4_SSSP_Bellman_Ford {
                 if(e != null)
                 {
                     D[i] = e.getEdgeWeight();
+
+                    // u update the pi value here
+                    pi[i] = src;   // bcz to reach 'i' u r goint thru source vertex
                 }
                 else       // BCZ we are returning null if thr is no such edge present in the edgelist
                 {
@@ -67,15 +76,37 @@ public class p4_SSSP_Bellman_Ford {
                     if(D[u] + e.getEdgeWeight() < D[v])         // here e.getEdgeWeight is essentially a w(u,v)
                     {
                         D[v] = D[u] + e.getEdgeWeight();
+
+                        // set the pi value : as u came inside means u r setting immediate predecsr value for 'v'
+                        pi[v] = u;
                     }
                 }
 
             }
 
-            // printing the shortest paths to all othr vertices frm the src node
+            // printing the shortest paths to all othr vertices frm the src node : means printing the array D
             for(int i : D)
             {
                 System.out.print(i +  " ");
+            }
+
+            // System.out.println(Arrays.toString(pi));          : just to verify pi array
+
+            System.out.println();
+
+            printShortestPath(pi,2);         // printing the shortest path from src vertex to vertex 2
+        }
+
+        // recursive function to print the shortest path
+
+        public static void printShortestPath(int[] pi, int v)
+        {
+            int k = pi[v];     // to reach 'v' , we go thru 'k'
+
+            if(k != -1)        // termination condition for recursion
+            {
+                System.out.print(k + "<- ");
+                printShortestPath(pi,k);
             }
         }
 }
