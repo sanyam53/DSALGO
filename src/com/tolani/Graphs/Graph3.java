@@ -5,10 +5,13 @@ import java.util.List;
 
 public class Graph3
 {
+
+    int noOfVertices;
+
     GraphType gt;           // depending on graph type we will fetch an edge frm edgeList
     IsGraphWeighted gw;
 
-    List<Edge> allEdges;   // array list of all the edges , whch store an edge object
+    public List<Edge> allEdges;   // array list of all the edges , whch store an edge object
 
     public static class Edge
     {
@@ -60,13 +63,19 @@ public class Graph3
     }
 
     // public contructor
-    public Graph3(GraphType gt,IsGraphWeighted gw)
+    public Graph3(int size,GraphType gt,IsGraphWeighted gw)
     {
+        noOfVertices = size;
         this.gt = gt;
         this.gw = gw;
 
         allEdges = new ArrayList<Edge>();
     }
+
+    public int getN() {
+        return noOfVertices;
+    }
+
 
     // utility methods
     public void addEdge(int u , int v)
@@ -85,11 +94,13 @@ public class Graph3
 
     public Edge getEdge(int u , int v)
     {
+        if(u == v) return null;
+
         if(this.gt == GraphType.DIRECTED)
         {
             for(Edge e : allEdges)        // u traverse thru all the edges and see
             {
-                if(e.getU() == u)
+                if(e.getU() == u && e.getV() == v)
                 {
                     return e;
                 }
@@ -100,7 +111,7 @@ public class Graph3
         {
             for(Edge e : allEdges)
             {
-                if(e.getU() == u || e.getU() == v)          // 1st vertex cn be 'u' or 'v'
+                if((e.getU() == u && e.getU() == v)  || (e.getV() == u && e.getU() == v))          // 1st vertex cn be 'u' or 'v'
                 {
                     return e;
                 }
@@ -110,5 +121,12 @@ public class Graph3
         return null;     // if edge not found then return null;
     }
 
+    public void displayEdgeList()
+    {
+        for(Edge e : allEdges)
+        {
+            System.out.print("(" + e.getU() + "," + e.getV() + ") -> ");
+        }
+    }
 }
 
