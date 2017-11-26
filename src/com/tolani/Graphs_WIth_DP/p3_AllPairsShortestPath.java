@@ -38,7 +38,7 @@ public class p3_AllPairsShortestPath {
 
         int[][] D = new int[n][n];
 
-        // code for finding the shortest path frm i to j
+        // code for finding the shortest path frm i to j : COde for pi functin
 
         int[][] pi = new int[n][n];    // taking an n by n matrix called pi : for which we will calculate pi functin
 
@@ -63,6 +63,7 @@ public class p3_AllPairsShortestPath {
         for(int i=0 ; i < n ;i++) D[i][i] =0;      // u can put all diagonl entries as 0 if u dnt wnt to consider it or else
                                                     // u cn put them as INF if u wnt to find a cycle length (which is shortest)
 
+        // induction is on 'k' means : first 'k' vertices are allwd as an intermediate nodes : simple
         for(int k = 1 ; k <= n ; k++)
         {
             for(int i=0 ; i < n ;i++)
@@ -75,6 +76,7 @@ public class p3_AllPairsShortestPath {
                     {
                         D[i][j] = D[i][k-1] + D[k-1][j];
 
+                        // code for pi function
                         pi[i][j] = k-1;
                     }
                 }
@@ -83,6 +85,7 @@ public class p3_AllPairsShortestPath {
 
         displayMatrix(D);
 
+        // code for pi function
         // lets print the shortest path using the pi function and pi matrix we ve calculated
 
         System.out.println();
