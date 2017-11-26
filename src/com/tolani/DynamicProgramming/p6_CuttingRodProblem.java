@@ -23,7 +23,7 @@ public class p6_CuttingRodProblem {
 
         int lenOfRod = cuts[n-1] - cuts[0] ;
 
-        int[][] t = new int[n][n];
+        int[][] t = new int[n][n];      // as ur reqmnt is (0,n-1)the entry
 
         for(int i=0; i < n-1 ; i++) {     // we go till 'n-1' bcz : i+1 is in thr see
             t[i][i+1] = 0;            // if thr r two consecutive pts then cost of cutting is 0
@@ -34,7 +34,7 @@ public class p6_CuttingRodProblem {
             t[i][i+2] = cuts[i+2] - cuts[i];     // so if thr is only one way to cut : at the mid pt then , cost is the len of rod bw i & j
         }
 
-        for(int l=3 ; l < n ; l++)
+        for(int l=3 ; l < n ; l++)       // we took 'l' is 3 bcz , next pos to be filled is i =0 and j=3 : l is dist bw i & j
         {
             for(int i=0 ; i < n-l ; i++)
             {
@@ -45,20 +45,20 @@ public class p6_CuttingRodProblem {
                 int value = Integer.MAX_VALUE;
 
                 for(int k = i+1 ; k < j ; k++)         // now we will chck for all cuts bw i & j : and find minimum of them : i < k < j
-                {
+                {                                                           // ( i+1 <= k <= j-1 )
                     if( (t[i][k] + t[k][j]) < value)
                     {
-                        value = t[i][k] + t[k][j];
+                        value = t[i][k] + t[k][j];         // these vals are already computed n stored in the table
                     }
                 }
 
-                t[i][j] = t[i][j] + value;
+                t[i][j] = t[i][j] + value;          // so we are adding a min value here tht we found ok
             }
         }
 
         printTable(t,n-1,n-1);
 
-        return t[0][n-1];
+        return t[0][n-1];          // returning the rightmost entry frm the table
     }
 
 }

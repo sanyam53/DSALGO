@@ -1,6 +1,13 @@
-package com.tolani.DynamicProgramming;
+/* Problem : cutting rod problem
 
-import java.util.Arrays;
+* Given a rod of length n inches and an array of prices that contains prices of all pieces of size smaller than n. Determine the maximum value
+* obtainable by cutting up the rod and selling the pieces. For example, if length of the rod is 8 and the values of different pieces are given
+* as following, then the maximum obtainable value is 22 (by cutting in two pieces of lengths 2 and 6)
+*
+* */
+
+
+package com.tolani.DynamicProgramming;
 
 import static com.tolani.DynamicProgramming.p4_LongestCommonSubseqn.printTable;
 
@@ -72,7 +79,8 @@ public class p7_CuttingRodCoremanProblem {
             for (int j = 1; j <= n; j++) {
                 v[i][j] = v[i - 1][j];
 
-                if ((i <= j) && (prices[i - 1] + v[i][j - i]) > v[i][j]) {
+                if ((i <= j) && (prices[i - 1] + v[i][j - i]) > v[i][j])    // 'i' means length of a piece & 'j' means lenght u r having of rod
+                {
                     v[i][j] = prices[i - 1] + v[i][j - i];
                 }
             }

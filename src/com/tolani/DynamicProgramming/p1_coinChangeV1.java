@@ -1,7 +1,5 @@
 package com.tolani.DynamicProgramming;
 
-import java.util.Arrays;
-
 public class p1_coinChangeV1 {
 
     public static void main(String[] args)
@@ -60,6 +58,8 @@ public class p1_coinChangeV1 {
 
                 // now u compute the 2nd option : which cn be computed only if (i >= dj) , so first chck tht conditin nd then only compute
                 // else outOfBounds come and logically u cant pay 50 rs with a 100 rs note
+
+                // Dj is actually (j-1) in coins array : u wnt to use scnd coin which is at index 1 in coins array
 
                 if(i >= coins[j-1] && v[i][j] > 1 + v[i-coins[j-1]][j])
                 {

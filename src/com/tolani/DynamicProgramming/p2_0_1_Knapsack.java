@@ -4,6 +4,7 @@ public class p2_0_1_Knapsack {
 
     public static void main(String[] args)
     {
+        // items are having 2 dimensions here : weight and Profit
         int items = 4;
 
         int[] weights = {2,1,3,2};

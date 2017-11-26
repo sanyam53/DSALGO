@@ -23,8 +23,6 @@
 *
 * */
 
-
-
 package com.tolani.DynamicProgramming;
 
 public class p8_MaximumSumSubArray {
@@ -40,15 +38,23 @@ public class p8_MaximumSumSubArray {
         System.out.println(bottomUpMSS(arr));
     }
 
-    public static int bottomUpMSS(int[] arr)
+    public static int bottomUpMSS(int[] MSS)
     {
-        int maxVal = arr[0];
+        int maxVal = MSS[0];
 
-        for(int i=1; i < arr.length ; i++)
+        for(int i=1; i < MSS.length ; i++)
         {
-            arr[i] = Math.max(arr[i] + arr[i-1] , arr[i]);
+            // max sum subarray at index 'j' (if we include j) will be calculated by following eqn
 
-            if(arr[i] > maxVal) maxVal = arr[i];
+            // MSS(1..j) = Max( Vj + MSS(j-1) , Vj )
+
+            // means MSS at 'j' is maxmum of ( MSS already calucltd till 'j-1' , or Value(j) )
+            // in LIS prolem we wr considering all i values tht r less thn 'j' , but as this is the contiguous chunk of elements we ve to only
+            // consider the 'j-1'th index ONLY
+
+            MSS[i] = Math.max(MSS[i] + MSS[i-1] , MSS[i]);
+
+            if(MSS[i] > maxVal) maxVal = MSS[i];
         }
 
         return maxVal;

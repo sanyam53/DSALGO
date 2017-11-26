@@ -17,7 +17,7 @@ public class p5_LongestPalindromeSubseqn {
     {
         int n = x.length;    // n = 7;
 
-        int[][] L = new int[n][n];  // 0 to 6
+        int[][] L = new int[n][n];  // 0 to 6 : here u need (0,n-1)th entry : so u dnt hv to tk n+1 here in table size
 
         for(int i=0; i < n ; i++)   //  i -> 0 to 6      :: L(i,i) : for one char it is the LLPSubseqn : so we pick it so len is 1
         {
@@ -35,7 +35,7 @@ public class p5_LongestPalindromeSubseqn {
             else L[i][i+1] = 1;
         }
 
-        // now we will fill entries diagonal b diagonal : mark indices of i and j to write indices : bcz loop will be diff in this
+        // now we will fill entries diagonal by diagonal : mark indices of i and j to write indices : bcz loop will be diff in this
         // 'i' is the inner loop as it incrmnts linearly but everytime one entry reduces in 'i' : so tc of tht by 'l'
         // 'j' is having sm diff 'l' frm 'i' : so j = i+l ; and then it incrmnts linearly
 
@@ -78,7 +78,7 @@ public class p5_LongestPalindromeSubseqn {
 
         StringBuilder sb = new StringBuilder();
 
-        while(i != j)          // as u reach main diagonal entry u stp thr and u tk tht 1 lenght character frm thr at last
+        while(i != j)          // as u reach main diagonal entry u stp thr and u tk tht 1 length character frm thr at last
         {
             if(L[i][j] == (2 + L[i+1][j-1]))    // so u take both characters here
             {

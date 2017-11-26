@@ -7,9 +7,9 @@ public class p4_LongestCommonSubseqn {
         char[] str1 = "abcabba".toCharArray();
         char[] str2 = "cbabaca".toCharArray();
 
-       int maxLenghtLCS = bottomUp(str1,str2);
+       int maxLengthLCS = bottomUp(str1,str2);
 
-       System.out.println(maxLenghtLCS);
+       System.out.println(maxLengthLCS);
     }
 
     public static int bottomUp(char[] x , char[] y)
@@ -45,7 +45,7 @@ public class p4_LongestCommonSubseqn {
                 }
                 else
                 {
-                    L[i][j] = Math.max(L[i-1][j],L[i][j-1]);
+                    L[i][j] = Math.max(L[i-1][j] , L[i][j-1]);
                 }
             }
         }
@@ -67,7 +67,7 @@ public class p4_LongestCommonSubseqn {
 
         StringBuilder sb = new StringBuilder();
 
-        while(n >= 1 && m >=1)            // if u tk loop within loop here then code will fail : outof bounds : think why ?
+        while(n >= 1 && m >=1)            // if u tk loop within loop here then code will fail : outof bounds : think why ? : bcz diagnl entries
         {
                 if( L[n][m] == (1 + L[n-1][m-1]) )        // if it is 1 + diagonal entry
                 {
