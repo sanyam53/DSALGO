@@ -1,16 +1,14 @@
 package com.tolani.Graphs;
 
-//import com.tolani.Graphs.GraphType;
-
-import java.util.Arrays;
-
 public class Graph1 {
 
     int n;                        // #of vertices
     public int[][] adjMatrix;            // 2d array
+
     GraphType gtype;
     IsGraphWeighted gweight;
 
+    // constructor
     public Graph1(int size,GraphType gt,IsGraphWeighted gw)
     {
         this.n = size;
@@ -20,7 +18,7 @@ public class Graph1 {
         gweight = gw;
     }
 
-
+    // getter and setter methods
     public int getN() {
         return n;
     }
@@ -37,6 +35,7 @@ public class Graph1 {
         this.gtype = gtype;
     }
 
+    // utility methods
     public void addEdge(int u , int v)
     {
         if (gtype == GraphType.DIRECTED) {

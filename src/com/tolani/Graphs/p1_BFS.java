@@ -21,6 +21,7 @@ public class p1_BFS {
 
         g.displayGraph();
 
+        // call bfs on the source vertex
         BFS(g,0);
     }
 
@@ -33,19 +34,23 @@ public class p1_BFS {
 
         // color and pi value are intialized in the nodes itslf , so we dnt hv to do it here
 
+        // fetching src vertex frm hashmap and setting is pi val to be itslf : which depicts tht it is a source vertex
         Vertex srcV = g.vertexList.get(source);
         srcV.piValue = source;
 
-        q.add(srcV);                  // so u first add source node to the queue and u set its color to be black
+        // so u first add source node to the queue and u set its color to be black
+        q.add(srcV);
         srcV.setColor(Color.BLACK);
 
-        visitBFS(g,q,srcV);          // call visit function on the source vertex
+        // call visit function on the source vertex
+        visitBFS(g,q,srcV);
 
+        // calling visit fun for all vertices whch are not reachable from the source vertex and still colored GREEN
         for(int i=0 ; i < g.noOfVertices ; i++)
         {
             Collection<Vertex> c = g.vertexList.values();
 
-            Iterator itr = c.iterator();
+            Iterator itr = c.iterator();   // Fetching an iterator on the collection 'c'
 
             while(itr.hasNext())
             {
@@ -63,18 +68,21 @@ public class p1_BFS {
 
     public static void visitBFS(Graph2_v2 g, Queue q, Vertex v)
     {
+
         while(!q.isEmpty())
         {
-            Vertex u = (Vertex) q.remove();      // delete a vertex frm queue AND set its color as red one
+            // delete a vertex frm queue AND set its color as red one
+            Vertex u = (Vertex) q.remove();
             u.setColor(RED);
 
-            System.out.print(u.data + " ");
+            System.out.print(u.data + " ");       // printing to get the bfs traversal
 
+            // for all adjacent nodes to 'u' : whose vertexId is stored in adjList of 'u' : fetch them and add them to the DS Q
             for(AdjListNode x : u.adjList)
             {
-                Vertex vObj = g.vertexList.get(x.getVertexId());
+                Vertex vObj = g.vertexList.get(x.getVertexId());    // fetching them frm the hashmap
 
-                if(vObj.getColor() == GREEN)
+                if(vObj.getColor() == GREEN)     // if they are not visited yet then add them to the Q and set color and pi value
                 {
                     q.add(vObj);
                     vObj.setColor(BLACK);

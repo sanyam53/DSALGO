@@ -1,10 +1,7 @@
 package com.tolani.Graphs;
 
-
-import java.util.*;
 import com.tolani.Graphs.Graph2_v2.*;
 import static com.tolani.Graphs.Color.*;
-
 
 public class p3_DFS_Recursive {
 
@@ -40,7 +37,8 @@ public class p3_DFS_Recursive {
         u.setColor(BLACK);                // u mark this vertex as added to the DS and print it
         System.out.print(u.data + " ");    // u r printing it as u r popping it and visiting its neighbours : meanss u r exploring this vertex
 
-        for(AdjListNode x : u.adjList)         // so u will call func recursively for all the adjacent vertices if they are nt added to d DS yet
+        // so u will call func recursively for all the adjacent vertices if they are nt added to d DS yet
+        for(AdjListNode x : u.adjList)
         {
             Vertex vObj = g.vertexList.get(x.getVertexId()) ;
 
@@ -51,7 +49,8 @@ public class p3_DFS_Recursive {
             }
         }
 
-        u.setColor(RED);   // u ve finished visiting all of the neighbours so u r out of the loop
+        // u ve finished visiting all of the neighbours so u r out of the loop
+        u.setColor(RED);
     }
 
 }

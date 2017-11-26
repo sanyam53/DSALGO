@@ -1,3 +1,5 @@
+// simple impn of adj list
+
 package com.tolani.Graphs;
 
 import java.util.LinkedList;

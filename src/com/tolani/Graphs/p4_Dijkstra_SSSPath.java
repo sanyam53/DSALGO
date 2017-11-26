@@ -53,9 +53,9 @@ public class p4_Dijkstra_SSSPath {
 
     public static void visitDijkstra(Graph2_v2 g,PriorityQueue minHeap,Vertex v)
     {
+
       while(!minHeap.isEmpty())
       {
-
           Vertex u =(Vertex) minHeap.remove();
 
           u.setColor(RED);
@@ -70,6 +70,7 @@ public class p4_Dijkstra_SSSPath {
                     minHeap.add(vObj);
                     vObj.setColor(BLACK);
                     vObj.piValue = u.data;
+
                 }
 
                 else if(vObj.getColor() == BLACK)        // if node is already thr in the data structure
@@ -77,10 +78,12 @@ public class p4_Dijkstra_SSSPath {
                     if(vObj.getPriority() > ( u.getPriority() + adjNode.getWeight()))    // then u calculate the priority if > then this then update
                     {
                         vObj.setPriority(u.getPriority() + adjNode.getWeight());       // this is actually a decrease key function
-                        // so now to change into the data structure we dnt hv in built function in java so we remove then change priority then reinsert it into the heap
 
-                        minHeap.remove(vObj);
-                        minHeap.add(vObj);
+                        // so now to change Priority into the DS we dnt hv in built function in java
+                        // so we remove then change priority then reinsert it into the heap
+
+                        minHeap.remove(vObj);     // removing
+                        minHeap.add(vObj);        // adding again : we ve updated the priority in the 1st step see
 
                         vObj.piValue = u.data;
                     }

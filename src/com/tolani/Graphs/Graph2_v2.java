@@ -4,6 +4,29 @@
 *   the structure of a node contains integer data and a color < this color is useful while implementing BFS, DFS, Dijkstra, Min. spanning tree
 * */
 
+/*
+*   we ve seen the simple impn of Adjlist in which we just created an "array of LinkedLists" nothing more !
+*
+*   but now in this impn : we will have a class called Vertex : which ll resemble Array tht we used to hv in simple impn
+*                          now we wr able to access vertex in O(1) bcz it ws array , now here we ll create an hashmap of vertices
+*                          <Integer,VertexObject> : so this will hold our constant access of vertices
+*
+*                          now Vertex contains lot more parameters such as{ data , pival , priority ,color } etc. , now to create an adjList of
+*                          each vertex we ll add an AdjList (an arraylist associated with each vertex) : which ll resemble the LinkedList
+*                          we used to have in simple impn for each vertex
+*
+*                          thing is this adjList is also a type of AdjListNode : means it contains AdjListNodes
+*                          now AdjListNodes ll contain : vertexId (to whch our vertex is connctd) and Weight may be if it is weighted graph
+*
+*    working : to add an edge (u,v) : we ll first fetch our Vertex Object 'u' frm the hashmap
+*                                     aftr tht we wll create an adjListNode with vertex id 'v' and may be gvn weight
+*                                     aftr tht we ll add this adjListNode in the associated adjList of vertex Obj v tht we already fetched
+*                                     thts it. in case of undrctd graph we ll repeat this process in reverse order.
+*
+*
+*
+* */
+
 package com.tolani.Graphs;
 import java.util.*;
 
@@ -17,29 +40,16 @@ public class Graph2_v2 {
     {
         int data;
         ArrayList<AdjListNode> adjList;       // this will contain integer of the vertices that are connected to this vertex object
+                                                        // this is exactly a linked list we wr tkng in case of Adj list for each vertex
         Color color;      // Color is an enum type
+
+        // pi val is added to store the immediate predecessor
         int piValue;
 
+        // priority is added to use min heap /max heap concept
         int priority;
 
         // new parameters for dfs application
-
-        public int getDiscoveryTime() {
-            return discoveryTime;
-        }
-
-        public void setDiscoveryTime(int discoveryTime) {
-            this.discoveryTime = discoveryTime;
-        }
-
-        public int getFinishTime() {
-            return finishTime;
-        }
-
-        public void setFinishTime(int finishTime) {
-            this.finishTime = finishTime;
-        }
-
         int discoveryTime;
         int finishTime;
 
@@ -57,6 +67,8 @@ public class Graph2_v2 {
             discoveryTime = finishTime = -1;
         }
 
+        // getter and setter methods
+
         public void setColor(Color c)
         {
             this.color = c;
@@ -73,6 +85,22 @@ public class Graph2_v2 {
 
         public void setPriority(int priority) {
             this.priority = priority;
+        }
+
+        public int getDiscoveryTime() {
+            return discoveryTime;
+        }
+
+        public void setDiscoveryTime(int discoveryTime) {
+            this.discoveryTime = discoveryTime;
+        }
+
+        public int getFinishTime() {
+            return finishTime;
+        }
+
+        public void setFinishTime(int finishTime) {
+            this.finishTime = finishTime;
         }
     }
 
@@ -127,7 +155,7 @@ public class Graph2_v2 {
         for(int i=0 ; i < noOfVertices ; i++)
         {
             Vertex v = new Vertex(i);       // we r creating a vertex object with indices
-            vertexList.put(i,v);            // now we are adding it to the hashmap (vertexList)
+            vertexList.put(i,v);            // now we are adding it to the hashmap (vertexList) : integer is key , vertex object is a value
         }
     }
 
