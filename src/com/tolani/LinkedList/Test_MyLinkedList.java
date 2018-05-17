@@ -34,6 +34,12 @@ public class Test_MyLinkedList {
 
         ll.displayLinkedList();
 
+        // to reverse a linked list by iterative code : uncomment below
+/*
+        ll.reverseList();
+        ll.displayLinkedList();
+*/
+
         ll.insertAtBegin(23);
         ll.displayLinkedList();
 
