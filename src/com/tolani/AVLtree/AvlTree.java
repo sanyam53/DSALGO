@@ -176,8 +176,8 @@ public class AvlTree {
 
       // here logic of avltree rotatins finishes and as we return the next node abv
 
-       return root;
-
+       return root; // you are passing the unchanged ptr or link of a node tht you hve rotated upwards to connect whr insert recursive
+                    // call returns.
     }
 
 
